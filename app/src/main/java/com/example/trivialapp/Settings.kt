@@ -81,7 +81,7 @@ fun Settings(navController: NavController) {
             Text(text = "Difficulty: ", fontSize = 14.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
 
             Box(modifier = Modifier.clickable { expanded = true }) {
-                Text(text = "$selectedDifficulty", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = selectedDifficulty, fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
 
 
                 DropdownMenu(
@@ -196,8 +196,8 @@ fun Settings(navController: NavController) {
             Switch(checked = darkMode,
                 onCheckedChange = { darkMode = !darkMode },
                 colors = SwitchDefaults.colors(
-                    uncheckedThumbColor = Color.Red,
-                    checkedThumbColor = Color.Green
+                    uncheckedThumbColor = Color.DarkGray,
+                    checkedThumbColor = Color.DarkGray
                 ))
         }
 

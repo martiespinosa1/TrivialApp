@@ -62,7 +62,7 @@ fun Game(navController: NavController) {
     ) {
 
         Text(
-            text = "Game screen",
+            text = "Game screen", fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
             modifier = Modifier.padding(top = 15.dp)
         )
