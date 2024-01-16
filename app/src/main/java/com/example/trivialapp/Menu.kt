@@ -51,11 +51,7 @@ fun Menu(navController: NavController) {
     val colorGrisOscuro = Color(.15f, .15f, .15f) // Gris oscuro
     val colorGrisClaro = Color(.85f, .85f, .85f) // Gris claro
 
-    var expanded by remember { mutableStateOf(false) }
-    val difficulty = listOf("FÁCIL", "NORMAL", "DIFÍCIL")
-    var selectedDifficulty by remember { mutableStateOf(difficulty[1]) }
 
-    var showDialog by remember { mutableStateOf(false) }
 
     Image(
         painter = painterResource(id = R.drawable.fondo),
@@ -70,6 +66,7 @@ fun Menu(navController: NavController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -86,11 +83,35 @@ fun Menu(navController: NavController) {
             )
         }
 
-        val buttonColor = ButtonDefaults.buttonColors(
-            containerColor = Color(.15f, 0.15f, 0.15f).copy(alpha = 0.8f), // Gris oscuro
-            //contentColor = MaterialTheme.colorScheme.surface
-            contentColor = Color(.85f, 0.85f, 0.85f) // Gris claro
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 50.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            OutlinedButton(
+                onClick = { navController.navigate(Routes.Game.route) },
+                modifier = Modifier.requiredWidth(220.dp),
+            ) {
+                Text(text = "New Game", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 50.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            OutlinedButton(
+                onClick = { navController.navigate(Routes.Settings.route) },
+                modifier = Modifier.requiredWidth(220.dp),
+            ) {
+                Text(text = "Settings", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            }
+        }
 
     }
 }
