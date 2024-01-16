@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CornerSize
@@ -20,6 +21,10 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Slider
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -47,6 +53,9 @@ fun Settings(navController: NavController) {
     var expanded by remember { mutableStateOf(false) }
     val difficulty = listOf("Easy", "Medium", "Hard")
     var selectedDifficulty by remember { mutableStateOf(difficulty[0]) }
+    var rounds by remember { mutableIntStateOf(5) }
+    var time by remember { mutableIntStateOf(30) }
+    var darkMode by remember { mutableStateOf(false) }
 
     Image(
         painter = painterResource(id = R.drawable.fondo),
@@ -62,12 +71,6 @@ fun Settings(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(
-            text = "Settings screen",
-            fontSize = 24.sp,
-            modifier = Modifier.padding(top = 15.dp)
-        )
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -75,10 +78,10 @@ fun Settings(navController: NavController) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Difficulty: ")
+            Text(text = "Difficulty: ", fontSize = 14.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
 
             Box(modifier = Modifier.clickable { expanded = true }) {
-                Text(text = "$selectedDifficulty")
+                Text(text = "$selectedDifficulty", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
 
 
                 DropdownMenu(
@@ -88,7 +91,7 @@ fun Settings(navController: NavController) {
                         .padding(8.dp)
                 ) {
                     difficulty.forEach {
-                        DropdownMenuItem(text = { Text(text = it) },
+                        DropdownMenuItem(text = { Text(text = it, fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold) },
                             onClick = {
                                 expanded = false
                                 selectedDifficulty = it
@@ -96,8 +99,121 @@ fun Settings(navController: NavController) {
                     }
                 }
             }
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(text = "Rounds: ", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    RadioButton(
+                        selected = rounds == 5,
+                        onClick = { rounds = 5 }
+                    )
+                    Text(
+                        text = "5 ",
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    RadioButton(
+                        selected = rounds == 10,
+                        onClick = { rounds = 10 }
+                    )
+                    Text(
+                        text = "10",
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    RadioButton(
+                        selected = rounds == 15,
+                        onClick = { rounds = 15 }
+                    )
+                    Text(
+                        text = "15",
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+        }
 
 
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(0.8f),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(text = "Time per round: ", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+
+            Slider(
+                value = time.toFloat(),
+                onValueChange = { newValue ->
+                    time = newValue.toInt()
+                },
+                valueRange = 10f..60f,
+                steps = 4,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+        Text(text = "                $time seconds", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(0.8f),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(text = "Dark mode ", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+
+            Switch(checked = darkMode,
+                onCheckedChange = { darkMode = !darkMode },
+                colors = SwitchDefaults.colors(
+                    uncheckedThumbColor = Color.Red,
+                    checkedThumbColor = Color.Green
+                ))
+        }
+
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            OutlinedButton(
+                onClick = { navController.navigate(Routes.Menu.route) },
+                modifier = Modifier.requiredWidth(220.dp),
+            ) {
+                Text(text = "Return to menu", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+            }
         }
 
     }

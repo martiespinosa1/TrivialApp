@@ -92,9 +92,9 @@ fun Menu(navController: NavController) {
         ) {
             OutlinedButton(
                 onClick = { navController.navigate(Routes.Game.route) },
-                modifier = Modifier.requiredWidth(220.dp),
+                modifier = Modifier.requiredWidth(200.dp),
             ) {
-                Text(text = "New Game", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Text(text = "New Game", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
         }
 
@@ -106,9 +106,9 @@ fun Menu(navController: NavController) {
         ) {
             OutlinedButton(
                 onClick = { navController.navigate(Routes.Settings.route) },
-                modifier = Modifier.requiredWidth(220.dp),
+                modifier = Modifier.requiredWidth(200.dp),
             ) {
-                Text(text = "Settings", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Text(text = "Settings", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
         }
 
