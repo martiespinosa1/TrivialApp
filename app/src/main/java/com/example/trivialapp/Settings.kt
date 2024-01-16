@@ -1,7 +1,9 @@
 package com.example.trivialapp
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -14,6 +16,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -40,10 +44,9 @@ import java.util.Random
 
 @Composable
 fun Settings(navController: NavController) {
-
-    var randomWord by remember { mutableStateOf("") }
-    val random = Random()
-    var attempts by remember { mutableIntStateOf(0) }
+    var expanded by remember { mutableStateOf(false) }
+    val difficulty = listOf("Easy", "Medium", "Hard")
+    var selectedDifficulty by remember { mutableStateOf(difficulty[0]) }
 
     Image(
         painter = painterResource(id = R.drawable.fondo),
@@ -64,6 +67,38 @@ fun Settings(navController: NavController) {
             fontSize = 24.sp,
             modifier = Modifier.padding(top = 15.dp)
         )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 50.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(text = "Difficulty: ")
+
+            Box(modifier = Modifier.clickable { expanded = true }) {
+                Text(text = "$selectedDifficulty")
+
+
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier
+                        .padding(8.dp)
+                ) {
+                    difficulty.forEach {
+                        DropdownMenuItem(text = { Text(text = it) },
+                            onClick = {
+                                expanded = false
+                                selectedDifficulty = it
+                            })
+                    }
+                }
+            }
+
+
+        }
 
     }
 }

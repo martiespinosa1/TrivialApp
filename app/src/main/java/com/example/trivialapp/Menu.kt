@@ -86,7 +86,7 @@ fun Menu(navController: NavController) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 50.dp),
+                .padding(bottom = 25.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -100,8 +100,7 @@ fun Menu(navController: NavController) {
 
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 50.dp),
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {

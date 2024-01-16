@@ -69,7 +69,6 @@ fun Launch(alphaAnim: Float) {
             text = "Trivial App",
             fontSize = 33.sp,
             fontFamily = FontFamily.Monospace,
-            color = colorGrisClaro,
             modifier = Modifier.padding(top = 150.dp).alpha(alphaAnim)
         )
     }
