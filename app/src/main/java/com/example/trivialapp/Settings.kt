@@ -73,8 +73,7 @@ fun Settings(navController: NavController) {
 
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 50.dp),
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -103,7 +102,8 @@ fun Settings(navController: NavController) {
 
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(top = 30.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -166,7 +166,8 @@ fun Settings(navController: NavController) {
 
         Row(
             modifier = Modifier
-                .fillMaxWidth(0.8f),
+                .fillMaxWidth(0.8f)
+                .padding(top = 30.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -187,24 +188,31 @@ fun Settings(navController: NavController) {
 
         Row(
             modifier = Modifier
-                .fillMaxWidth(0.8f),
+                .fillMaxWidth(0.8f)
+                .padding(top = 30.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
             Text(text = "Dark mode ", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
 
-            Switch(checked = darkMode,
-                onCheckedChange = { darkMode = !darkMode },
+            Switch(
+                checked = darkMode,
+                onCheckedChange = { checked ->
+                    darkMode = checked
+                },
                 colors = SwitchDefaults.colors(
                     uncheckedThumbColor = Color.DarkGray,
                     checkedThumbColor = Color.DarkGray
-                ))
+                )
+            )
+
         }
 
 
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(top = 60.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
