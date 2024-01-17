@@ -1,4 +1,4 @@
-package com.example.trivialapp
+package com.example.trivialapp.view
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -30,7 +30,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.trivialapp.R
 import kotlinx.coroutines.delay
+import com.example.trivialapp.navigation.Routes
 
 
 @OptIn(ExperimentalMaterial3Api::class)
