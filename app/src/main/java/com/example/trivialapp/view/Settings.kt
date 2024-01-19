@@ -36,10 +36,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.trivialapp.R
 import com.example.trivialapp.navigation.Routes
+import com.example.trivialapp.viewmodel.MyViewModel
 
 
 @Composable
-fun Settings(navController: NavController) {
+fun Settings(navController: NavController, myViewModel: MyViewModel) {
     var expanded by remember { mutableStateOf(false) }
     val difficulty = listOf("Easy", "Medium", "Hard")
     var selectedDifficulty by remember { mutableStateOf(difficulty[0]) }
@@ -70,7 +71,7 @@ fun Settings(navController: NavController) {
             Text(text = "Difficulty: ", fontSize = 14.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
 
             Box(modifier = Modifier.clickable { expanded = true }) {
-                Text(text = selectedDifficulty, fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = myViewModel.selectedDifficulty, fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
 
 
                 DropdownMenu(
@@ -83,7 +84,7 @@ fun Settings(navController: NavController) {
                         DropdownMenuItem(text = { Text(text = it, fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold) },
                             onClick = {
                                 expanded = false
-                                selectedDifficulty = it
+                                myViewModel.modifyDifficulty(it)
                             })
                     }
                 }
