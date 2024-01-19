@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.trivialapp.model.QuestionsAndAnswers
 
 class MyViewModel: ViewModel() {
     var selectedDifficulty: String by mutableStateOf("Medium")
@@ -19,6 +20,7 @@ class MyViewModel: ViewModel() {
 
     var colorMode: Boolean by mutableStateOf(false)
         private set
+
 
 
 
@@ -37,4 +39,8 @@ class MyViewModel: ViewModel() {
     fun modifyColorMode(dark: Boolean) {
         colorMode = dark
     }
+
+
+
+
 }
