@@ -34,6 +34,7 @@ import com.example.trivialapp.model.QuestionsAndAnswers
 import com.example.trivialapp.navigation.Routes
 import com.example.trivialapp.viewmodel.MyViewModel
 import com.example.trivialapp.model.QuestionsAndAnswers.Kahoot
+import kotlin.random.Random
 
 
 @Composable
@@ -102,6 +103,8 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
         else -> { kahootMedium }
     }
 
+    val indiceRandom = Random.nextInt(0, 15)
+
     Image(
         painter = painterResource(id = R.drawable.fondo),
         contentDescription = "fondo",
@@ -131,10 +134,10 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = preguntas[round - 1].pregunta,
+                text = preguntas[indiceRandom].pregunta,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
-                fontSize = 40.sp,
+                fontSize = 28.sp,
                 modifier = Modifier.padding(top = 15.dp)
             )
         }
@@ -153,7 +156,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                 },
                 modifier = Modifier.requiredWidth(150.dp),
             ) {
-                Text(text = preguntas[round - 1].respuestas[0], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = preguntas[indiceRandom].respuestas[0], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
             Spacer(modifier = Modifier.padding(10.dp))
             OutlinedButton(
@@ -163,7 +166,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                 },
                 modifier = Modifier.requiredWidth(150.dp),
             ) {
-                Text(text = preguntas[round - 1].respuestas[1], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = preguntas[indiceRandom].respuestas[1], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
         }
         Row(
@@ -180,7 +183,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                 },
                 modifier = Modifier.requiredWidth(150.dp),
             ) {
-                Text(text = preguntas[round - 1].respuestas[2], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = preguntas[indiceRandom].respuestas[2], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
             Spacer(modifier = Modifier.padding(10.dp))
             OutlinedButton(
@@ -190,7 +193,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                 },
                 modifier = Modifier.requiredWidth(150.dp),
             ) {
-                Text(text = preguntas[round - 1].respuestas[3], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = preguntas[indiceRandom].respuestas[3], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
         }
 
