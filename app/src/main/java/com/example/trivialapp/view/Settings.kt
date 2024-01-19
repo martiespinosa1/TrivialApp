@@ -43,10 +43,6 @@ import com.example.trivialapp.viewmodel.MyViewModel
 fun Settings(navController: NavController, myViewModel: MyViewModel) {
     var expanded by remember { mutableStateOf(false) }
     val difficulty = listOf("Easy", "Medium", "Hard")
-    var selectedDifficulty by remember { mutableStateOf(difficulty[0]) }
-    var rounds by remember { mutableIntStateOf(5) }
-    var time by remember { mutableIntStateOf(30) }
-    var darkMode by remember { mutableStateOf(false) }
 
     Image(
         painter = painterResource(id = R.drawable.fondo),
@@ -109,8 +105,8 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
                     horizontalArrangement = Arrangement.Center
                 ) {
                     RadioButton(
-                        selected = rounds == 5,
-                        onClick = { rounds = 5 }
+                        selected = myViewModel.selectedRounds == 5,
+                        onClick = { myViewModel.modifyRounds(5) }
                     )
                     Text(
                         text = "5 ",
@@ -125,8 +121,8 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
                     horizontalArrangement = Arrangement.Center
                 ) {
                     RadioButton(
-                        selected = rounds == 10,
-                        onClick = { rounds = 10 }
+                        selected = myViewModel.selectedRounds == 10,
+                        onClick = { myViewModel.modifyRounds(10) }
                     )
                     Text(
                         text = "10",
@@ -141,8 +137,8 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
                     horizontalArrangement = Arrangement.Center
                 ) {
                     RadioButton(
-                        selected = rounds == 15,
-                        onClick = { rounds = 15 }
+                        selected = myViewModel.selectedRounds == 15,
+                        onClick = { myViewModel.modifyRounds(15) }
                     )
                     Text(
                         text = "15",
@@ -165,16 +161,14 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
             Text(text = "Time per round: ", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
 
             Slider(
-                value = time.toFloat(),
-                onValueChange = { newValue ->
-                    time = newValue.toInt()
-                },
+                value = myViewModel.selectedTime.toFloat(),
+                onValueChange = { myViewModel.modifyTime(it.toInt()) },
                 valueRange = 10f..60f,
                 steps = 4,
                 modifier = Modifier.fillMaxWidth()
             )
         }
-        Text(text = "                $time seconds", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+        Text(text = "                ${myViewModel.selectedTime} seconds", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
 
 
         Row(
@@ -187,10 +181,8 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
             Text(text = "Dark mode ", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
 
             Switch(
-                checked = darkMode,
-                onCheckedChange = { checked ->
-                    darkMode = checked
-                },
+                checked = myViewModel.colorMode,
+                onCheckedChange = { myViewModel.modifyColorMode(it) },
                 colors = SwitchDefaults.colors(
                     uncheckedThumbColor = Color.DarkGray,
                     checkedThumbColor = Color.DarkGray

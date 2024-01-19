@@ -31,12 +31,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.trivialapp.R
 import com.example.trivialapp.navigation.Routes
+import com.example.trivialapp.viewmodel.MyViewModel
 
 
 @Composable
-fun Game(navController: NavController) {
+fun Game(navController: NavController, myViewModel: MyViewModel) {
     var round by remember { mutableIntStateOf(1) }
-    var totalRounds by remember { mutableIntStateOf(10) }
+    var totalRounds by remember { mutableIntStateOf(myViewModel.selectedRounds) }
 
     Image(
         painter = painterResource(id = R.drawable.fondo),
@@ -78,7 +79,7 @@ fun Game(navController: NavController) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 80.dp),
+                .padding(top = 200.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
