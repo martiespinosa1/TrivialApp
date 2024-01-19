@@ -33,6 +33,7 @@ import com.example.trivialapp.R
 import com.example.trivialapp.model.QuestionsAndAnswers
 import com.example.trivialapp.navigation.Routes
 import com.example.trivialapp.viewmodel.MyViewModel
+import com.example.trivialapp.model.QuestionsAndAnswers.Kahoot
 
 
 @Composable
@@ -40,264 +41,65 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
     var round by remember { mutableIntStateOf(1) }
     var totalRounds by remember { mutableIntStateOf(myViewModel.selectedRounds) }
 
-    val preguntasEasy = arrayOf(
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el color primario?",
-            respuesta1 = "Rojo",
-            respuesta2 = "Verde",
-            respuesta3 = "Azul"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el animal más grande del mundo?",
-            respuesta1 = "Elefante",
-            respuesta2 = "Ballena Azul",
-            respuesta3 = "Jirafa"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el continente más poblado?",
-            respuesta1 = "Asia",
-            respuesta2 = "África",
-            respuesta3 = "Europa"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el planeta más cercano al Sol?",
-            respuesta1 = "Venus",
-            respuesta2 = "Mercurio",
-            respuesta3 = "Marte"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el océano más grande?",
-            respuesta1 = "Atlántico",
-            respuesta2 = "Pacífico",
-            respuesta3 = "Índico"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el país más grande del mundo?",
-            respuesta1 = "Rusia",
-            respuesta2 = "China",
-            respuesta3 = "Estados Unidos"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el instrumento musical más antiguo?",
-            respuesta1 = "Flauta",
-            respuesta2 = "Piano",
-            respuesta3 = "Violín"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el idioma más hablado del mundo?",
-            respuesta1 = "Inglés",
-            respuesta2 = "Español",
-            respuesta3 = "Mandarín"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el deporte más popular del mundo?",
-            respuesta1 = "Fútbol",
-            respuesta2 = "Baloncesto",
-            respuesta3 = "Tenis"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el país con forma de bota?",
-            respuesta1 = "Italia",
-            respuesta2 = "España",
-            respuesta3 = "México"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el río más largo del mundo?",
-            respuesta1 = "Nilo",
-            respuesta2 = "Amazonas",
-            respuesta3 = "Mississippi"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el animal nacional de Australia?",
-            respuesta1 = "Canguro",
-            respuesta2 = "Koala",
-            respuesta3 = "Emú"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el símbolo químico del oro?",
-            respuesta1 = "Ag",
-            respuesta2 = "Au",
-            respuesta3 = "Fe"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el país conocido como la cuna de la civilización?",
-            respuesta1 = "Egipto",
-            respuesta2 = "Grecia",
-            respuesta3 = "Irak"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el número de lados de un triángulo?",
-            respuesta1 = "3",
-            respuesta2 = "4",
-            respuesta3 = "5"
-        )
+    val kahootEasy : List<QuestionsAndAnswers.Kahoot> = listOf(
+        Kahoot("¿Cuál es la capital de Francia?", listOf("París", "Madrid", "Berlín", "Londres")),
+        Kahoot("¿Cuántos días tiene una semana?", listOf("7", "5", "10", "12")),
+        Kahoot("¿Quién escribió Romeo y Julieta?", listOf("William Shakespeare", "Jane Austen", "Charles Dickens", "F. Scott Fitzgerald")),
+        Kahoot("¿Cuál es el planeta más grande del sistema solar?", listOf("Júpiter", "Marte", "Venus", "Saturno")),
+        Kahoot("¿Cuál es el río más largo del mundo?", listOf("Amazonas", "Nilo", "Misisipi", "Yangtsé")),
+        Kahoot("¿En qué año comenzó la Segunda Guerra Mundial?", listOf("1939", "1945", "1914", "1929")),
+        Kahoot("¿Cuál es el animal terrestre más grande?", listOf("Elefante africano", "Jirafa", "Hipopótamo", "Oso polar")),
+        Kahoot("¿Quién pintó La Última Cena?", listOf("Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Claude Monet")),
+        Kahoot("¿En qué año se fundó Google?", listOf("1998", "2000", "1995", "2005")),
+        Kahoot("¿Cuántos continentes hay en el mundo?", listOf("7", "5", "6", "4")),
+        Kahoot("¿Cuál es la montaña más alta del mundo?", listOf("Monte Everest", "K2", "Monte McKinley", "Monte Kilimanjaro")),
+        Kahoot("¿Qué metal es conocido como el oro rojo?", listOf("Cobre", "Oro", "Plata", "Aluminio")),
+        Kahoot("¿En qué país se encuentra la Gran Muralla China?", listOf("China", "Japón", "Corea del Sur", "India")),
+        Kahoot("¿Cuál es el instrumento musical más antiguo?", listOf("Flauta", "Piano", "Violín", "Trompeta")),
+        Kahoot("¿Cuántos colores tiene el arcoíris?", listOf("7", "5", "6", "9"))
     )
 
-
-
-    val preguntasMedium = arrayOf(
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es la capital de Australia?",
-            respuesta1 = "Sídney",
-            respuesta2 = "Melbourne",
-            respuesta3 = "Canberra"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Quién escribió la novela 'Cien años de soledad'?",
-            respuesta1 = "Gabriel García Márquez",
-            respuesta2 = "Mario Vargas Llosa",
-            respuesta3 = "Jorge Luis Borges"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el río más largo de África?",
-            respuesta1 = "Nilo",
-            respuesta2 = "Congo",
-            respuesta3 = "Zambeze"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el elemento químico más abundante en la Tierra?",
-            respuesta1 = "Oxígeno",
-            respuesta2 = "Carbono",
-            respuesta3 = "Hierro"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el país más poblado del mundo?",
-            respuesta1 = "China",
-            respuesta2 = "India",
-            respuesta3 = "Estados Unidos"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el autor de la obra 'Don Quijote de la Mancha'?",
-            respuesta1 = "Miguel de Cervantes",
-            respuesta2 = "Federico García Lorca",
-            respuesta3 = "Pablo Neruda"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el océano más grande del mundo?",
-            respuesta1 = "Pacífico",
-            respuesta2 = "Atlántico",
-            respuesta3 = "Índico"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el monte más alto del mundo?",
-            respuesta1 = "Monte Everest",
-            respuesta2 = "Monte Kilimanjaro",
-            respuesta3 = "Monte Aconcagua"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el símbolo químico del oro?",
-            respuesta1 = "Au",
-            respuesta2 = "Ag",
-            respuesta3 = "Fe"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el país conocido como 'la tierra del sol naciente'?",
-            respuesta1 = "Japón",
-            respuesta2 = "China",
-            respuesta3 = "Corea del Sur"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el autor de la obra 'Romeo y Julieta'?",
-            respuesta1 = "William Shakespeare",
-            respuesta2 = "Friedrich Nietzsche",
-            respuesta3 = "Charles Dickens"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el río más largo de Europa?",
-            respuesta1 = "Volga",
-            respuesta2 = "Danubio",
-            respuesta3 = "Rin"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el país conocido como 'la tierra de los faraones'?",
-            respuesta1 = "Egipto",
-            respuesta2 = "Grecia",
-            respuesta3 = "Italia"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el autor de la obra '1984'?",
-            respuesta1 = "George Orwell",
-            respuesta2 = "Aldous Huxley",
-            respuesta3 = "Ray Bradbury"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el continente más grande del mundo?",
-            respuesta1 = "Asia",
-            respuesta2 = "África",
-            respuesta3 = "América"
-        )
+    val kahootMedium = listOf(
+        Kahoot("¿Cuál es el metal más abundante en la corteza terrestre?", listOf("Aluminio", "Hierro", "Cobre", "Oro")),
+        Kahoot("¿En qué año se proclamó la Declaración de los Derechos Humanos?", listOf("1948", "1955", "1939", "1962")),
+        Kahoot("¿Cuál es la capital de Australia?", listOf("Camberra", "Sídney", "Melbourne", "Brisbane")),
+        Kahoot("¿Quién fue el primer presidente de Estados Unidos?", listOf("George Washington", "Thomas Jefferson", "John Adams", "Abraham Lincoln")),
+        Kahoot("¿Qué gas compone la mayor parte de la atmósfera terrestre?", listOf("Nitrógeno", "Oxígeno", "Dióxido de carbono", "Argón")),
+        Kahoot("¿En qué año se celebró la Revolución Rusa?", listOf("1917", "1925", "1905", "1933")),
+        Kahoot("¿Cuál es el río más largo de América del Norte?", listOf("Mississippi", "Missouri", "Yukón", "Colorado")),
+        Kahoot("¿Qué científico formuló la teoría de la relatividad?", listOf("Albert Einstein", "Isaac Newton", "Galileo Galilei", "Stephen Hawking")),
+        Kahoot("¿Cuándo ocurrió la caída del Muro de Berlín?", listOf("1989", "1991", "1985", "1995")),
+        Kahoot("¿Cuál es el océano más grande del mundo?", listOf("Océano Pacífico", "Océano Atlántico", "Océano Índico", "Océano Antártico")),
+        Kahoot("¿Quién escribió el libro 'Cien años de soledad'?", listOf("Gabriel García Márquez", "Julio Cortázar", "Mario Vargas Llosa", "Isabel Allende")),
+        Kahoot("¿Cuántos huesos tiene el cuerpo humano adulto?", listOf("206", "195", "220", "180")),
+        Kahoot("¿En qué continente se encuentra la Antártida?", listOf("Antártida", "África", "América", "Asia")),
+        Kahoot("¿Quién fue el primer ser humano en el espacio?", listOf("Yuri Gagarin", "Neil Armstrong", "Buzz Aldrin", "Valentina Tereshkova")),
+        Kahoot("¿Cuál es el segundo idioma más hablado del mundo?", listOf("Español", "Inglés", "Mandarín", "Hindi"))
     )
 
-
-
-    val preguntasHard = arrayOf(
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el país más extenso del mundo?",
-            respuesta1 = "Rusia",
-            respuesta2 = "Canadá",
-            respuesta3 = "China"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Quién pintó el cuadro 'La noche estrellada'?",
-            respuesta1 = "Vincent van Gogh",
-            respuesta2 = "Pablo Picasso",
-            respuesta3 = "Leonardo da Vinci"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el libro más vendido de la historia?",
-            respuesta1 = "La Biblia",
-            respuesta2 = "Don Quijote de la Mancha",
-            respuesta3 = "El Principito"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el país con más premios Nobel?",
-            respuesta1 = "Estados Unidos",
-            respuesta2 = "Reino Unido",
-            respuesta3 = "Alemania"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el monumento más visitado del mundo?",
-            respuesta1 = "La Gran Muralla China",
-            respuesta2 = "La Torre Eiffel",
-            respuesta3 = "El Coliseo Romano"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el compositor de la Sinfonía No. 9 'Coral'?",
-            respuesta1 = "Ludwig van Beethoven",
-            respuesta2 = "Wolfgang Amadeus Mozart",
-            respuesta3 = "Johann Sebastian Bach"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el país con más islas en el mundo?",
-            respuesta1 = "Suecia",
-            respuesta2 = "Filipinas",
-            respuesta3 = "Indonesia"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el autor de la obra 'Guerra y Paz'?",
-            respuesta1 = "León Tolstói",
-            respuesta2 = "Fyodor Dostoyevsky",
-            respuesta3 = "Anton Chekhov"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el animal más rápido del mundo?",
-            respuesta1 = "Guepardo",
-            respuesta2 = "Leopardo",
-            respuesta3 = "León"
-        ),
-        QuestionsAndAnswers.Kahoot(
-            pregunta = "¿Cuál es el pintor del cuadro 'La última cena'?",
-            respuesta1 = "Leonardo da Vinci",
-            respuesta2 = "Pablo Picasso",
-            respuesta3 = "Vincent van Gogh"
-        )
+    val kahootHard = listOf(
+        Kahoot("¿Quién formuló la teoría de la relatividad general?", listOf("Albert Einstein", "Stephen Hawking", "Niels Bohr", "Max Planck")),
+        Kahoot("¿Cuál es el elemento químico con el número atómico 79?", listOf("Oro", "Plata", "Cobre", "Hierro")),
+        Kahoot("¿En qué año se fundó la Unión Europea?", listOf("1957", "1945", "1965", "1980")),
+        Kahoot("¿Cuál es la novela más larga jamás escrita?", listOf("La Montaña Mágica", "En busca del tiempo perdido", "Ulises", "Los hermanos Karamázov")),
+        Kahoot("¿Qué filósofo es conocido por su teoría del superhombre?", listOf("Friedrich Nietzsche", "Immanuel Kant", "Jean-Jacques Rousseau", "John Locke")),
+        Kahoot("¿Cuántos premios Nobel ganó Marie Curie?", listOf("Dos", "Uno", "Cinco", "Ninguno")),
+        Kahoot("¿Cuál es el fenómeno físico detrás de la aurora boreal?", listOf("Interacción de partículas solares con la atmósfera", "Reflejo de la luz solar en la atmósfera", "Efecto Doppler de la luz", "Influencia de la luna en las mareas")),
+        Kahoot("¿Cuál es la obra más famosa de Anton Chejov?", listOf("La gaviota", "Tío Vania", "Tres hermanas", "El jardín de los cerezos")),
+        Kahoot("¿En qué año se descubrió la estructura del ADN?", listOf("1953", "1960", "1945", "1972")),
+        Kahoot("¿Qué matemático propuso el teorema de incompletitud?", listOf("Kurt Gödel", "Alan Turing", "David Hilbert", "Georg Cantor")),
+        Kahoot("¿Quién desarrolló la teoría de los juegos?", listOf("John von Neumann", "John Nash", "Leonhard Euler", "Blaise Pascal")),
+        Kahoot("¿Cuántos satélites naturales tiene el planeta Marte?", listOf("Dos", "Fobos y Deimos", "Cinco", "Ninguno")),
+        Kahoot("¿Quién escribió 'Ensayo sobre la desigualdad de las razas humanas'?", listOf("Arthur de Gobineau", "Charles Darwin", "Immanuel Kant", "Voltaire")),
+        Kahoot("¿Cuál es la obra más conocida de Ludwig van Beethoven?", listOf("Sinfonía n.º 9 en re menor, op. 125", "Sonata para piano n.º 14 en do sostenido menor 'Claro de luna'", "Concierto para piano n.º 5 en mi bemol mayor 'Emperador'", "Sinfonía n.º 5 en do menor, op. 67")),
+        Kahoot("¿Quién desarrolló la teoría de la relatividad especial?", listOf("Albert Einstein", "Niels Bohr", "Max Planck", "Werner Heisenberg"))
     )
 
     val preguntas = when (myViewModel.selectedDifficulty) {
-        "Easy" -> preguntasEasy
-        "Medium" -> preguntasMedium
-        "Hard" -> preguntasHard
-        else -> { preguntasMedium }
+        "Easy" -> kahootEasy
+        "Medium" -> kahootMedium
+        "Hard" -> kahootHard
+        else -> { kahootMedium }
     }
 
     Image(
@@ -345,17 +147,23 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             horizontalArrangement = Arrangement.Center
         ) {
             OutlinedButton(
-                onClick = { navController.navigate(Routes.Menu.route) },
+                onClick = {
+                    if (round == totalRounds) navController.navigate(Routes.Result.route)
+                    else round++
+                },
                 modifier = Modifier.requiredWidth(150.dp),
             ) {
-                Text(text = preguntas[round - 1].respuesta1, fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = preguntas[round - 1].respuestas[0], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
             Spacer(modifier = Modifier.padding(10.dp))
             OutlinedButton(
-                onClick = { navController.navigate(Routes.Menu.route) },
+                onClick = {
+                    if (round == totalRounds) navController.navigate(Routes.Result.route)
+                    else round++
+                },
                 modifier = Modifier.requiredWidth(150.dp),
             ) {
-                Text(text = preguntas[round - 1].respuesta2, fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = preguntas[round - 1].respuestas[1], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
         }
         Row(
@@ -366,17 +174,23 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             horizontalArrangement = Arrangement.Center
         ) {
             OutlinedButton(
-                onClick = { navController.navigate(Routes.Menu.route) },
+                onClick = {
+                    if (round == totalRounds) navController.navigate(Routes.Result.route)
+                    else round++
+                },
                 modifier = Modifier.requiredWidth(150.dp),
             ) {
-                Text(text = preguntas[round - 1].respuesta3, fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = preguntas[round - 1].respuestas[2], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
             Spacer(modifier = Modifier.padding(10.dp))
             OutlinedButton(
-                onClick = { navController.navigate(Routes.Menu.route) },
+                onClick = {
+                    if (round == totalRounds) navController.navigate(Routes.Result.route)
+                    else round++
+                },
                 modifier = Modifier.requiredWidth(150.dp),
             ) {
-                Text(text = "Answer 4", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = preguntas[round - 1].respuestas[3], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
         }
 
