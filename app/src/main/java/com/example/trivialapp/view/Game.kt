@@ -96,14 +96,12 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
         Kahoot("¿Quién desarrolló la teoría de la relatividad especial?", listOf("Albert Einstein", "Niels Bohr", "Max Planck", "Werner Heisenberg"))
     )
 
-    val preguntas = when (myViewModel.selectedDifficulty) {
-        "Easy" -> kahootEasy
-        "Medium" -> kahootMedium
-        "Hard" -> kahootHard
-        else -> { kahootMedium }
+    var preguntas = when (myViewModel.selectedDifficulty) {
+        "Easy" -> kahootEasy.toMutableList()
+        "Medium" -> kahootMedium.toMutableList()
+        "Hard" -> kahootHard.toMutableList()
+        else -> { kahootMedium.toMutableList() }
     }
-
-    val indiceRandom = Random.nextInt(0, 15)
 
     Image(
         painter = painterResource(id = R.drawable.fondo),
@@ -125,6 +123,9 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             fontSize = 24.sp,
             modifier = Modifier.padding(top = 15.dp)
         )
+
+        var indiceRandom = Random.nextInt(preguntas.size)
+        var indiceRandomResuestaCorrecta = Random.nextInt(4)
 
         Row(
             modifier = Modifier
@@ -152,21 +153,33 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             OutlinedButton(
                 onClick = {
                     if (round == totalRounds) navController.navigate(Routes.Result.route)
-                    else round++
+                    else {
+                        preguntas.removeAt(indiceRandom)
+                        round++
+                        indiceRandom = Random.nextInt(preguntas.size)
+                        indiceRandomResuestaCorrecta = Random.nextInt(4)
+                    }
                 },
                 modifier = Modifier.requiredWidth(150.dp),
             ) {
-                Text(text = preguntas[indiceRandom].respuestas[0], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                if (indiceRandomResuestaCorrecta == 0) Text(text = preguntas[indiceRandom].respuestas[0], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                //else Text(text = preguntas[indiceRandom].respuestas[1], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
             Spacer(modifier = Modifier.padding(10.dp))
             OutlinedButton(
                 onClick = {
                     if (round == totalRounds) navController.navigate(Routes.Result.route)
-                    else round++
+                    else {
+                        preguntas.removeAt(indiceRandom)
+                        round++
+                        indiceRandom = Random.nextInt(preguntas.size)
+                        indiceRandomResuestaCorrecta = Random.nextInt(4)
+                    }
                 },
                 modifier = Modifier.requiredWidth(150.dp),
             ) {
-                Text(text = preguntas[indiceRandom].respuestas[1], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                if (indiceRandomResuestaCorrecta == 1) Text(text = preguntas[indiceRandom].respuestas[0], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                //else Text(text = preguntas[indiceRandom].respuestas[1], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
         }
         Row(
@@ -179,21 +192,33 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             OutlinedButton(
                 onClick = {
                     if (round == totalRounds) navController.navigate(Routes.Result.route)
-                    else round++
+                    else {
+                        preguntas.removeAt(indiceRandom)
+                        round++
+                        indiceRandom = Random.nextInt(preguntas.size)
+                        indiceRandomResuestaCorrecta = Random.nextInt(4)
+                    }
                 },
                 modifier = Modifier.requiredWidth(150.dp),
             ) {
-                Text(text = preguntas[indiceRandom].respuestas[2], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                if (indiceRandomResuestaCorrecta == 2) Text(text = preguntas[indiceRandom].respuestas[0], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                //else Text(text = preguntas[indiceRandom].respuestas[2], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
             Spacer(modifier = Modifier.padding(10.dp))
             OutlinedButton(
                 onClick = {
                     if (round == totalRounds) navController.navigate(Routes.Result.route)
-                    else round++
+                    else {
+                        preguntas.removeAt(indiceRandom)
+                        round++
+                        indiceRandom = Random.nextInt(preguntas.size)
+                        indiceRandomResuestaCorrecta = Random.nextInt(4)
+                    }
                 },
                 modifier = Modifier.requiredWidth(150.dp),
             ) {
-                Text(text = preguntas[indiceRandom].respuestas[3], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                if (indiceRandomResuestaCorrecta == 3) Text(text = preguntas[indiceRandom].respuestas[0], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                //else Text(text = preguntas[indiceRandom].respuestas[3], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
         }
 

@@ -5,4 +5,6 @@ class QuestionsAndAnswers {
         val pregunta: String,
         val respuestas: List<String>
     )
+
+    var preguntasUsadas = mutableListOf<Int>()
 }
