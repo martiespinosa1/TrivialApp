@@ -106,7 +106,6 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
     }
 
     var preguntas by remember { mutableStateOf(listaPreguntas) }
-    var hasta4 by remember { mutableIntStateOf(4) }
 
     Image(
         painter = painterResource(id = R.drawable.fondo),
@@ -130,8 +129,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
         )
 
         var indiceRandom by remember { mutableIntStateOf(Random.nextInt(preguntas.size)) }
-        var indiceRandomResuestaCorrecta by remember { mutableIntStateOf(Random.nextInt(4)) }
-        var indiceRandomResuesta by remember { mutableIntStateOf(Random.nextInt(hasta4)) }
+        var indiceRandomResuesta by remember { mutableIntStateOf(Random.nextInt(preguntas[indiceRandom].respuestas.size)) }
 
 
 
@@ -151,116 +149,46 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             )
         }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 200.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            OutlinedButton(
-                onClick = {
-                    if (round == totalRounds) navController.navigate(Routes.Result.route)
-                    else {
-                        preguntas.removeAt(indiceRandom)
-                        round++
-                        indiceRandom = Random.nextInt(preguntas.size)
-                        indiceRandomResuestaCorrecta = Random.nextInt(4)
-                    }
-                },
-                modifier = Modifier.requiredWidth(150.dp),
+        var pad = 150
+        for (i in 0 until 2) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = pad.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
             ) {
-                if (indiceRandomResuestaCorrecta == 0) {
-                    Text(text = preguntas[indiceRandom].respuestas[0], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = Color.Green)
-                    //preguntas[indiceRandom].respuestas.removeAt(0)
-                    //hasta4--
-                }
-                else {
-                    Text(text = preguntas[indiceRandom].respuestas[indiceRandomResuesta], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
-                //    preguntas[indiceRandom].respuestas.removeAt(indiceRandomResuesta)
-                //    hasta4--
-                }
-            }
-            Spacer(modifier = Modifier.padding(10.dp))
-            OutlinedButton(
-                onClick = {
-                    if (round == totalRounds) navController.navigate(Routes.Result.route)
-                    else {
-                        preguntas.removeAt(indiceRandom)
-                        round++
-                        indiceRandom = Random.nextInt(preguntas.size)
-                        indiceRandomResuestaCorrecta = Random.nextInt(4)
+                pad = 25
+                for (j in 0 until 2) {
+                    val index = j
+
+                    OutlinedButton(
+                        onClick = {
+                            if (round == totalRounds) navController.navigate(Routes.Result.route)
+                            else {
+                                preguntas.removeAt(indiceRandom)
+                                round++
+                                indiceRandom = Random.nextInt(preguntas.size)
+                                indiceRandomResuesta = Random.nextInt(preguntas[indiceRandom].respuestas.size)
+                            }
+                        },
+                        modifier = Modifier
+                            .requiredWidth(160.dp)
+                            .then(Modifier.padding(10.dp)),
+                    ) {
+                        Text(
+                            text = preguntas[indiceRandom].respuestas[indiceRandomResuesta],
+                            fontSize = 20.sp,
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
-                },
-                modifier = Modifier.requiredWidth(150.dp),
-            ) {
-                if (indiceRandomResuestaCorrecta == 1) {
-                    Text(text = preguntas[indiceRandom].respuestas[0], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = Color.Green)
-                    //preguntas[indiceRandom].respuestas.removeAt(1)
-                    //hasta4--
-                }
-                else {
-                    Text(text = preguntas[indiceRandom].respuestas[indiceRandomResuesta], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
-                //    preguntas[indiceRandom].respuestas.removeAt(indiceRandomResuesta)
-                //    hasta4--
+                    Spacer(modifier = Modifier.padding(10.dp))
                 }
             }
         }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 50.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            OutlinedButton(
-                onClick = {
-                    if (round == totalRounds) navController.navigate(Routes.Result.route)
-                    else {
-                        preguntas.removeAt(indiceRandom)
-                        round++
-                        indiceRandom = Random.nextInt(preguntas.size)
-                        indiceRandomResuestaCorrecta = Random.nextInt(4)
-                    }
-                },
-                modifier = Modifier.requiredWidth(150.dp),
-            ) {
-                if (indiceRandomResuestaCorrecta == 2) {
-                    Text(text = preguntas[indiceRandom].respuestas[0], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = Color.Green)
-                    //preguntas[indiceRandom].respuestas.removeAt(2)
-                    // hasta4--
-                }
-                else {
-                    Text(text = preguntas[indiceRandom].respuestas[indiceRandomResuesta], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
-                //  preguntas[indiceRandom].respuestas.removeAt(indiceRandomResuesta)
-                //  hasta4--
-                }
-            }
-            Spacer(modifier = Modifier.padding(10.dp))
-            OutlinedButton(
-                onClick = {
-                    if (round == totalRounds) navController.navigate(Routes.Result.route)
-                    else {
-                        preguntas.removeAt(indiceRandom)
-                        round++
-                        indiceRandom = Random.nextInt(preguntas.size)
-                        indiceRandomResuestaCorrecta = Random.nextInt(4)
-                    }
-                },
-                modifier = Modifier.requiredWidth(150.dp),
-            ) {
-                if (indiceRandomResuestaCorrecta == 3) {
-                    Text(text = preguntas[indiceRandom].respuestas[0], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = Color.Green)
-                    //preguntas[indiceRandom].respuestas.removeAt(3)
-                    //hasta4--
-                }
-                else {
-                    Text(text = preguntas[indiceRandom].respuestas[indiceRandomResuesta], fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
-                //preguntas[indiceRandom].respuestas.removeAt(indiceRandomResuesta)
-                // hasta4--
-                }
-            }
-        }
+
+
 
 
         Row(
