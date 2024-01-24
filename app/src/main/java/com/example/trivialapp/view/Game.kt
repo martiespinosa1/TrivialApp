@@ -48,8 +48,9 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
     var indiceRandom by remember { mutableIntStateOf(Random.nextInt(myViewModel.preguntas.size)) }
 
     // Mezcla las respuestas
-    var respuestasMezcladas = myViewModel.preguntas[indiceRandom].respuestas
+    var respuestasMezcladas by remember { mutableStateOf(myViewModel.preguntas[indiceRandom].respuestas.toMutableList()) }
     respuestasMezcladas.shuffle()
+
 
     Image(
         painter = painterResource(id = R.drawable.fondo),
