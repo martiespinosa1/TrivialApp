@@ -47,10 +47,12 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
     var indiceRandom by remember { mutableIntStateOf(Random.nextInt(myViewModel.preguntas.size)) }
 
-    // Mezcla las respuestas
     var respuestasMezcladas by remember { mutableStateOf(myViewModel.preguntas[indiceRandom].respuestas.toMutableList()) }
-    respuestasMezcladas.shuffle()
 
+    // Mezcla las respuestas
+    LaunchedEffect(indiceRandom) {
+        respuestasMezcladas.shuffle()
+    }
 
     Image(
         painter = painterResource(id = R.drawable.fondo),
@@ -114,6 +116,9 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                                 myViewModel.preguntas.removeAt(indiceRandom)
                                 round++
                                 indiceRandom = Random.nextInt(myViewModel.preguntas.size)
+
+                                respuestasMezcladas = myViewModel.preguntas[indiceRandom].respuestas.toMutableList()
+                                respuestasMezcladas.shuffle()
                             }
                         },
                         modifier = Modifier
