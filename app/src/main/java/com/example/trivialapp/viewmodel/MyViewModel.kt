@@ -22,6 +22,8 @@ class MyViewModel: ViewModel() {
     var colorMode: Boolean by mutableStateOf(false)
         private set
 
+    var contadorAciertos: Int by mutableIntStateOf(0)
+        private set
 
 
     private val kahootEasy : MutableList<QuestionsAndAnswers.Kahoot> = mutableListOf(
@@ -104,6 +106,9 @@ class MyViewModel: ViewModel() {
         colorMode = dark
     }
 
+    fun modifyAciertos(aciertos: Int) {
+        contadorAciertos = aciertos
+    }
 
 
 

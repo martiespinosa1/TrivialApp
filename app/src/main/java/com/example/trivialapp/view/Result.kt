@@ -22,12 +22,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.trivialapp.R
+import com.example.trivialapp.viewmodel.MyViewModel
 import java.util.Random
 
 
 
 @Composable
-fun Result(navController: NavController) {
+fun Result(navController: NavController, myViewModel: MyViewModel) {
 
     var randomWord by remember { mutableStateOf("") }
     val random = Random()
@@ -48,7 +49,7 @@ fun Result(navController: NavController) {
     ) {
 
         Text(
-            text = "Result screen", fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold,
+            text = "${myViewModel.contadorAciertos}", fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
             modifier = Modifier.padding(top = 15.dp)
         )

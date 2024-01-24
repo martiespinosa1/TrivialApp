@@ -43,11 +43,13 @@ import kotlin.random.Random
 fun Game(navController: NavController, myViewModel: MyViewModel) {
     var round by remember { mutableIntStateOf(1) }
     var totalRounds by remember { mutableIntStateOf(myViewModel.selectedRounds) }
-    var contadorAciertos by remember { mutableIntStateOf(0) }
+    var aciertos by remember { mutableIntStateOf(0) }
 
     var indiceRandom by remember { mutableIntStateOf(Random.nextInt(myViewModel.preguntas.size)) }
 
-    var respuestasMezcladas by remember { mutableStateOf(myViewModel.preguntas[indiceRandom].respuestas.toMutableList()) }
+    var respuestasMezcladas by remember { mutableStateOf(myViewModel.preguntas[indiceRandom].respuestas) }
+
+
 
     // Mezcla las respuestas
     LaunchedEffect(indiceRandom) {
@@ -74,6 +76,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             fontSize = 24.sp,
             modifier = Modifier.padding(top = 15.dp)
         )
+        Text(text = "$aciertos")
 
 
 
@@ -96,6 +99,8 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
         var indiceRespuestas = 0
 
+        var buttonText = respuestasMezcladas[indiceRespuestas]
+
         var pad = 150
         for (i in 0 until 2) {
             Row(
@@ -107,11 +112,16 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             ) {
                 pad = 25
                 for (j in 0 until 2) {
-                    val index = j
-
                     OutlinedButton(
                         onClick = {
-                            if (round == totalRounds) navController.navigate(Routes.Result.route)
+                            if (buttonText == myViewModel.preguntas[indiceRandom].respuestas[0]) {
+                                aciertos++
+                            }
+
+                            if (round == totalRounds) {
+                                myViewModel.modifyAciertos(aciertos)
+                                navController.navigate(Routes.Result.route)
+                            }
                             else {
                                 myViewModel.preguntas.removeAt(indiceRandom)
                                 round++

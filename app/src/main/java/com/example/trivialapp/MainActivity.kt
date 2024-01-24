@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.Menu.route) { Menu(navigationController) }
                         composable(Routes.Game.route) { Game(navigationController, myViewModel) }
                         composable(Routes.Settings.route) { Settings(navigationController, myViewModel) }
-                        composable(Routes.Result.route) { Result(navigationController) }
+                        composable(Routes.Result.route) { Result(navigationController, myViewModel) }
                     }
                 }
             }
