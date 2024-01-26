@@ -26,7 +26,7 @@ class MyViewModel: ViewModel() {
         private set
 
 
-    private val kahootEasy : MutableList<QuestionsAndAnswers.Kahoot> = mutableListOf(
+    val kahootEasy : MutableList<QuestionsAndAnswers.Kahoot> = mutableListOf(
         QuestionsAndAnswers.Kahoot("¿Cuál es la capital de Francia?", mutableListOf("París", "Madrid", "Berlín", "Londres")),
         QuestionsAndAnswers.Kahoot("¿Cuántos días tiene una semana?", mutableListOf("7", "5", "10", "12")),
         QuestionsAndAnswers.Kahoot("¿Quién escribió Romeo y Julieta?", mutableListOf("William Shakespeare", "Jane Austen", "Charles Dickens", "F. Scott Fitzgerald")),
@@ -44,7 +44,7 @@ class MyViewModel: ViewModel() {
         QuestionsAndAnswers.Kahoot("¿Cuántos colores tiene el arcoíris?", mutableListOf("7", "5", "6", "9"))
     )
 
-    private val kahootMedium : MutableList<QuestionsAndAnswers.Kahoot> = mutableListOf(
+    val kahootMedium : MutableList<QuestionsAndAnswers.Kahoot> = mutableListOf(
         QuestionsAndAnswers.Kahoot("¿Cuál es el metal más abundante en la corteza terrestre?", mutableListOf("Aluminio", "Hierro", "Cobre", "Oro")),
         QuestionsAndAnswers.Kahoot("¿En qué año se proclamó la Declaración de los Derechos Humanos?", mutableListOf("1948", "1955", "1939", "1962")),
         QuestionsAndAnswers.Kahoot("¿Cuál es la capital de Australia?", mutableListOf("Camberra", "Sídney", "Melbourne", "Brisbane")),
@@ -62,7 +62,7 @@ class MyViewModel: ViewModel() {
         QuestionsAndAnswers.Kahoot("¿Cuál es el segundo idioma más hablado del mundo?", mutableListOf("Español", "Inglés", "Mandarín", "Hindi"))
     )
 
-    private val kahootHard : MutableList<QuestionsAndAnswers.Kahoot> = mutableListOf(
+    val kahootHard : MutableList<QuestionsAndAnswers.Kahoot> = mutableListOf(
         QuestionsAndAnswers.Kahoot("¿Quién formuló la teoría de la relatividad general?", mutableListOf("Albert Einstein", "Stephen Hawking", "Niels Bohr", "Max Planck")),
         QuestionsAndAnswers.Kahoot("¿Cuál es el elemento químico con el número atómico 79?", mutableListOf("Oro", "Plata", "Cobre", "Hierro")),
         QuestionsAndAnswers.Kahoot("¿En qué año se fundó la Unión Europea?", mutableListOf("1957", "1945", "1965", "1980")),
@@ -80,13 +80,6 @@ class MyViewModel: ViewModel() {
         QuestionsAndAnswers.Kahoot("¿Quién desarrolló la teoría de la relatividad especial?", mutableListOf("Albert Einstein", "Niels Bohr", "Max Planck", "Werner Heisenberg"))
     )
 
-
-    var preguntas = when (selectedDifficulty) {
-        "Easy" -> kahootEasy.toMutableList()
-        "Medium" -> kahootMedium.toMutableList()
-        "Hard" -> kahootHard.toMutableList()
-        else -> { kahootMedium.toMutableList() }
-    }
 
 
 

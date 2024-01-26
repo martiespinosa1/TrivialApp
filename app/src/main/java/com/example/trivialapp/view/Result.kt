@@ -30,10 +30,6 @@ import java.util.Random
 @Composable
 fun Result(navController: NavController, myViewModel: MyViewModel) {
 
-    var randomWord by remember { mutableStateOf("") }
-    val random = Random()
-    var attempts by remember { mutableIntStateOf(0) }
-
     Image(
         painter = painterResource(id = R.drawable.fondo),
         contentDescription = "fondo",
@@ -49,7 +45,7 @@ fun Result(navController: NavController, myViewModel: MyViewModel) {
     ) {
 
         Text(
-            text = "${myViewModel.contadorAciertos}", fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold,
+            text = "Your score: ${myViewModel.contadorAciertos} / ${myViewModel.selectedRounds}", fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
             modifier = Modifier.padding(top = 15.dp)
         )

@@ -45,9 +45,16 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
     var totalRounds by remember { mutableIntStateOf(myViewModel.selectedRounds) }
     var aciertos by remember { mutableIntStateOf(0) }
 
-    var indiceRandom by remember { mutableIntStateOf(Random.nextInt(myViewModel.preguntas.size)) }
-    var respuestasMezcladas by remember { mutableStateOf(myViewModel.preguntas[indiceRandom].respuestas) }
-    var respuestaCorrecta by remember { mutableStateOf(myViewModel.preguntas[indiceRandom].respuestas[0]) }
+    var preguntas = when (myViewModel.selectedDifficulty) {
+        "Easy" -> myViewModel.kahootEasy.toMutableList()
+        "Medium" -> myViewModel.kahootMedium.toMutableList()
+        "Hard" -> myViewModel.kahootHard.toMutableList()
+        else -> { myViewModel.kahootMedium.toMutableList() }
+    }
+
+    var indiceRandom by remember { mutableIntStateOf(Random.nextInt(preguntas.size)) }
+    var respuestasMezcladas by remember { mutableStateOf(preguntas[indiceRandom].respuestas) }
+    var respuestaCorrecta by remember { mutableStateOf(preguntas[indiceRandom].respuestas[0]) }
 
     // Mezcla las respuestas
     LaunchedEffect(indiceRandom) {
@@ -83,7 +90,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = myViewModel.preguntas[indiceRandom].pregunta,
+                text = preguntas[indiceRandom].pregunta,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
                 fontSize = 28.sp,
@@ -116,13 +123,13 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                                 myViewModel.modifyAciertos(aciertos)
                                 navController.navigate(Routes.Result.route)
                             } else {
-                                myViewModel.preguntas.removeAt(indiceRandom)
+                                preguntas.removeAt(indiceRandom)
                                 round++
-                                indiceRandom = Random.nextInt(myViewModel.preguntas.size)
+                                indiceRandom = Random.nextInt(preguntas.size)
 
-                                respuestasMezcladas = myViewModel.preguntas[indiceRandom].respuestas.toMutableList()
+                                respuestasMezcladas = preguntas[indiceRandom].respuestas.toMutableList()
                                 respuestasMezcladas.shuffle()
-                                respuestaCorrecta = myViewModel.preguntas[indiceRandom].respuestas[0]
+                                respuestaCorrecta = preguntas[indiceRandom].respuestas[0]
                             }
                         },
                         modifier = Modifier
