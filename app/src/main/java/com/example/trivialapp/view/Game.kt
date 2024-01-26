@@ -1,5 +1,6 @@
 package com.example.trivialapp.view
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -52,7 +53,8 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
         else -> { myViewModel.kahootMedium.toMutableList() }
     }
 
-    var indiceRandom by remember { mutableIntStateOf(Random.nextInt(preguntas.size)) }
+    var indicesBarajados by remember { mutableStateOf(preguntas.indices.shuffled()) }
+    var indiceRandom by remember { mutableStateOf(indicesBarajados[0]) }
     var respuestasMezcladas by remember { mutableStateOf(preguntas[indiceRandom].respuestas) }
     var respuestaCorrecta by remember { mutableStateOf(preguntas[indiceRandom].respuestas[0]) }
 
@@ -117,15 +119,20 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                         onClick = {
                             if (buttonText == respuestaCorrecta) {
                                 aciertos++
+
                             }
+
+
 
                             if (round == totalRounds) {
                                 myViewModel.modifyAciertos(aciertos)
                                 navController.navigate(Routes.Result.route)
                             } else {
-                                preguntas.removeAt(indiceRandom)
                                 round++
-                                indiceRandom = Random.nextInt(preguntas.size)
+                                // Remover el índice usado de la lista barajada
+                                indicesBarajados = indicesBarajados.toMutableList().apply { remove(indiceRandom) }
+                                // Obtener el siguiente índice barajado
+                                indiceRandom = indicesBarajados[0]
 
                                 respuestasMezcladas = preguntas[indiceRandom].respuestas.toMutableList()
                                 respuestasMezcladas.shuffle()
@@ -135,6 +142,11 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                         modifier = Modifier
                             .requiredWidth(160.dp)
                             .then(Modifier.padding(10.dp)),
+                        border = if (buttonText == respuestaCorrecta) {
+                            BorderStroke(2.dp, Color.Green)
+                        } else {
+                            BorderStroke(2.dp, Color.Red)
+                        }
                     ) {
                         Text(
                             text = respuestasMezcladas[indiceRespuestas],
