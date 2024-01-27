@@ -28,14 +28,8 @@ import androidx.navigation.NavController
 import com.example.trivialapp.R
 import com.example.trivialapp.navigation.Routes
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Menu(navController: NavController) {
-    val colorGrisOscuro = Color(.15f, .15f, .15f) // Gris oscuro
-    val colorGrisClaro = Color(.85f, .85f, .85f) // Gris claro
-
-
-
     Image(
         painter = painterResource(id = R.drawable.fondo),
         contentDescription = "fondo",

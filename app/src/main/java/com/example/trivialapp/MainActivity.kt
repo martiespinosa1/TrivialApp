@@ -20,7 +20,6 @@ import com.example.trivialapp.view.Result
 import com.example.trivialapp.view.Settings
 import com.example.trivialapp.viewmodel.MyViewModel
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val myViewModel by viewModels<MyViewModel>()
