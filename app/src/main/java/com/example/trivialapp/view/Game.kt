@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,16 +38,18 @@ import com.example.trivialapp.model.QuestionsAndAnswers
 import com.example.trivialapp.navigation.Routes
 import com.example.trivialapp.viewmodel.MyViewModel
 import com.example.trivialapp.model.QuestionsAndAnswers.Kahoot
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
 @Composable
 fun Game(navController: NavController, myViewModel: MyViewModel) {
     var round by remember { mutableIntStateOf(1) }
-    var totalRounds by remember { mutableIntStateOf(myViewModel.selectedRounds) }
+    val totalRounds by remember { mutableIntStateOf(myViewModel.selectedRounds) }
     var aciertos by remember { mutableIntStateOf(0) }
 
-    var preguntas = when (myViewModel.selectedDifficulty) {
+    val preguntas: MutableList<Kahoot> = when (myViewModel.selectedDifficulty) {
         "Easy" -> myViewModel.kahootEasy.toMutableList()
         "Medium" -> myViewModel.kahootMedium.toMutableList()
         "Hard" -> myViewModel.kahootHard.toMutableList()
@@ -54,15 +57,21 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
     }
 
     var indicesBarajados by remember { mutableStateOf(preguntas.indices.shuffled()) }
-    var indiceRandom by remember { mutableStateOf(indicesBarajados[0]) }
+    var indiceRandom by remember { mutableIntStateOf(indicesBarajados[0]) }
     var respuestasMezcladas by remember { mutableStateOf(preguntas[indiceRandom].respuestas) }
     var respuestaCorrecta by remember { mutableStateOf(preguntas[indiceRandom].respuestas[0]) }
+    var pintarBotonCorrecto by remember { mutableStateOf(false) }
+    var pintarBotonIncorrecto by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
 
     // Mezcla las respuestas
     LaunchedEffect(indiceRandom) {
+        pintarBotonCorrecto = false
+        pintarBotonIncorrecto = false
+        respuestasMezcladas = preguntas[indiceRandom].respuestas.toMutableList()
+        respuestaCorrecta = respuestasMezcladas[0]
         respuestasMezcladas.shuffle()
     }
-
     Image(
         painter = painterResource(id = R.drawable.fondo),
         contentDescription = "fondo",
@@ -119,33 +128,40 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                         onClick = {
                             if (buttonText == respuestaCorrecta) {
                                 aciertos++
-
+                                pintarBotonCorrecto = true
+                            } else {
+                                pintarBotonIncorrecto = true
+                                pintarBotonCorrecto = true
                             }
 
+                            coroutineScope.launch {
+                                delay(1000)
 
+                                if (round == totalRounds) {
+                                    myViewModel.modifyAciertos(aciertos)
+                                    navController.navigate(Routes.Result.route)
+                                } else {
+                                    round++
+                                    // Remover el índice usado de la lista barajada
+                                    indicesBarajados = indicesBarajados.toMutableList().apply { remove(indiceRandom) }
+                                    // Obtener el siguiente índice barajado
+                                    indiceRandom = indicesBarajados[0]
 
-                            if (round == totalRounds) {
-                                myViewModel.modifyAciertos(aciertos)
-                                navController.navigate(Routes.Result.route)
-                            } else {
-                                round++
-                                // Remover el índice usado de la lista barajada
-                                indicesBarajados = indicesBarajados.toMutableList().apply { remove(indiceRandom) }
-                                // Obtener el siguiente índice barajado
-                                indiceRandom = indicesBarajados[0]
+                                    // Mezclar las respuestas después de incrementar la ronda
+                                    respuestasMezcladas = preguntas[indiceRandom].respuestas.shuffled().toMutableList()
+                                    respuestaCorrecta = respuestasMezcladas[0]
 
-                                respuestasMezcladas = preguntas[indiceRandom].respuestas.toMutableList()
-                                respuestasMezcladas.shuffle()
-                                respuestaCorrecta = preguntas[indiceRandom].respuestas[0]
+                                    pintarBotonCorrecto = false
+                                }
                             }
                         },
                         modifier = Modifier
                             .requiredWidth(160.dp)
                             .then(Modifier.padding(10.dp)),
-                        border = if (buttonText == respuestaCorrecta) {
-                            BorderStroke(2.dp, Color.Green)
-                        } else {
-                            BorderStroke(2.dp, Color.Red)
+                        border = when {
+                            buttonText == respuestaCorrecta && pintarBotonCorrecto -> BorderStroke(2.dp, Color.Green)
+                            buttonText != respuestaCorrecta && pintarBotonIncorrecto -> BorderStroke(2.dp, Color.Red)
+                            else -> BorderStroke(2.dp, Color.DarkGray)
                         }
                     ) {
                         Text(
