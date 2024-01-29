@@ -1,5 +1,6 @@
 package com.example.trivialapp.view
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -80,6 +81,7 @@ fun Menu(navController: NavController, myViewModel: MyViewModel) {
             OutlinedButton(
                 onClick = { navController.navigate(Routes.Game.route) },
                 modifier = Modifier.requiredWidth(200.dp),
+                border = BorderStroke(2.dp, Color.DarkGray)
             ) {
                 Text(text = "New Game", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
@@ -94,6 +96,7 @@ fun Menu(navController: NavController, myViewModel: MyViewModel) {
             OutlinedButton(
                 onClick = { navController.navigate(Routes.Settings.route) },
                 modifier = Modifier.requiredWidth(200.dp),
+                border = BorderStroke(2.dp, Color.DarkGray)
             ) {
                 Text(text = "Settings", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }

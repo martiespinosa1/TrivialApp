@@ -1,10 +1,14 @@
 package com.example.trivialapp.view
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -22,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.trivialapp.R
+import com.example.trivialapp.navigation.Routes
 import com.example.trivialapp.viewmodel.MyViewModel
 import java.util.Random
 
@@ -58,6 +64,26 @@ fun Result(navController: NavController, myViewModel: MyViewModel) {
             fontSize = 24.sp,
             modifier = Modifier.padding(top = 15.dp)
         )
+
+        Spacer(modifier = Modifier.padding(top = 80.dp))
+        
+        OutlinedButton(
+            onClick = {  },
+            modifier = Modifier.requiredWidth(220.dp),
+            border = BorderStroke(2.dp, Color.DarkGray)
+        ) {
+            Text(text = "Share", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+        }
+
+        Spacer(modifier = Modifier.padding(top = 25.dp))
+
+        OutlinedButton(
+            onClick = { navController.navigate(Routes.Menu.route) },
+            modifier = Modifier.requiredWidth(220.dp),
+            border = BorderStroke(2.dp, Color.DarkGray)
+        ) {
+            Text(text = "Return to menu", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+        }
 
     }
 }

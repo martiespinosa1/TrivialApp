@@ -1,5 +1,6 @@
 package com.example.trivialapp.view
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -212,6 +213,7 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
             OutlinedButton(
                 onClick = { navController.navigate(Routes.Menu.route) },
                 modifier = Modifier.requiredWidth(220.dp),
+                border = BorderStroke(2.dp, Color.DarkGray)
             ) {
                 Text(text = "Return to menu", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
             }
