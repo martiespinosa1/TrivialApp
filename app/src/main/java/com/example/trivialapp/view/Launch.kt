@@ -33,6 +33,7 @@ import androidx.navigation.NavController
 import com.example.trivialapp.R
 import kotlinx.coroutines.delay
 import com.example.trivialapp.navigation.Routes
+import com.example.trivialapp.viewmodel.MyViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)

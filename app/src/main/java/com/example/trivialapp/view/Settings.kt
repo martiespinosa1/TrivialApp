@@ -44,12 +44,22 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
     var expanded by remember { mutableStateOf(false) }
     val difficulty = listOf("Easy", "Medium", "Hard")
 
-    Image(
-        painter = painterResource(id = R.drawable.fondo),
-        contentDescription = "fondo",
-        modifier = Modifier.fillMaxSize(),
-        contentScale = ContentScale.Crop
-    )
+    if (myViewModel.darkMode) {
+        Image(
+            painter = painterResource(id = R.drawable.fondo2),
+            contentDescription = "fondo oscuro",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+    } else {
+        Image(
+            painter = painterResource(id = R.drawable.fondo),
+            contentDescription = "fondo claro",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+    }
+
 
     Column(
         modifier = Modifier
@@ -181,8 +191,8 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
             Text(text = "Dark mode ", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
 
             Switch(
-                checked = myViewModel.colorMode,
-                onCheckedChange = { myViewModel.modifyColorMode(it) },
+                checked = myViewModel.darkMode,
+                onCheckedChange = { myViewModel.modifyDarkMode(it) },
                 colors = SwitchDefaults.colors(
                     uncheckedThumbColor = Color.DarkGray,
                     checkedThumbColor = Color.DarkGray

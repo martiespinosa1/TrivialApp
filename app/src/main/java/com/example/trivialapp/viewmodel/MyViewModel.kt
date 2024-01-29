@@ -19,7 +19,7 @@ class MyViewModel: ViewModel() {
     var selectedTime: Int by mutableIntStateOf(30)
         private set
 
-    var colorMode: Boolean by mutableStateOf(false)
+    var darkMode: Boolean by mutableStateOf(false)
         private set
 
     var contadorAciertos: Int by mutableIntStateOf(0)
@@ -95,8 +95,8 @@ class MyViewModel: ViewModel() {
         selectedTime = time
     }
 
-    fun modifyColorMode(dark: Boolean) {
-        colorMode = dark
+    fun modifyDarkMode(dark: Boolean) {
+        darkMode = dark
     }
 
     fun modifyAciertos(aciertos: Int) {

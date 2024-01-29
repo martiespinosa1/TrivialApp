@@ -30,12 +30,21 @@ import java.util.Random
 @Composable
 fun Result(navController: NavController, myViewModel: MyViewModel) {
 
-    Image(
-        painter = painterResource(id = R.drawable.fondo),
-        contentDescription = "fondo",
-        modifier = Modifier.fillMaxSize(),
-        contentScale = ContentScale.Crop
-    )
+    if (myViewModel.darkMode) {
+        Image(
+            painter = painterResource(id = R.drawable.fondo2),
+            contentDescription = "fondo oscuro",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+    } else {
+        Image(
+            painter = painterResource(id = R.drawable.fondo),
+            contentDescription = "fondo claro",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+    }
 
     Column(
         modifier = Modifier
