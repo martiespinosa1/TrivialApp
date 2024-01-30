@@ -1,5 +1,6 @@
 package com.example.trivialapp.view
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -12,7 +13,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -62,11 +67,13 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
     var respuestasMezcladas by remember { mutableStateOf(preguntas[indiceRandom].respuestas) }
     var respuestaCorrecta by remember { mutableStateOf(preguntas[indiceRandom].respuestas[0]) }
     var pintarBotonCorrecto by remember { mutableStateOf(false) }
+    var buttonsEnabled by remember { mutableStateOf(true) }
 
     val coroutineScope = rememberCoroutineScope()
 
     // Mezcla las respuestas
     LaunchedEffect(indiceRandom) {
+        buttonsEnabled = true
         pintarBotonCorrecto = false
         respuestasMezcladas = preguntas[indiceRandom].respuestas.toMutableList()
         respuestaCorrecta = respuestasMezcladas[0]
@@ -140,6 +147,8 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
                     OutlinedButton(
                         onClick = {
+                            buttonsEnabled = false
+
                             if (buttonText == respuestaCorrecta) {
                                 aciertos++
                                 pintarBotonCorrecto = true
@@ -177,7 +186,8 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                             buttonText == respuestaCorrecta && pintarBotonCorrecto -> BorderStroke(2.dp, Color(0xFF55FF55))
                             buttonText != respuestaCorrecta && pintarBotonIncorrecto -> BorderStroke(2.dp, Color(0xFFFF5555))
                             else -> myViewModel.colorBorde
-                        }
+                        },
+                        enabled = buttonsEnabled
                     ) {
                         Text(
                             text = respuestasMezcladas[indiceRespuestas],
@@ -197,7 +207,6 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
 
 
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -205,13 +214,22 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            TimeBar(30, 15)
+            LinearProgressIndicator(
+                progress = 0.8f, // Aquí puedes ajustar el progreso del ProgressBar
+                color = Color(0xFF55FF55), // Aquí puedes ajustar el color del ProgressBar
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(8.dp)
+            )
+
         }
 
 
 
     }
 }
+
+
 
 
 private fun calculateFontSize(text: String): TextUnit {
@@ -223,35 +241,6 @@ private fun calculateFontSize(text: String): TextUnit {
         (defaultFontSize * scaleFactor)
     } else {
         defaultFontSize
-    }
-}
-
-
-
-@Composable
-fun TimeBar(totalDuration: Int, currentProgress: Int) {
-    val reversedProgress = totalDuration - currentProgress // Invierte el progreso actual
-
-    Canvas(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(30.dp)
-    ) {
-        // Dibuja la barra de fondo
-        drawLine(
-            color = Color.LightGray,
-            start = Offset(0f, size.height / 2),
-            end = Offset(size.width, size.height / 2),
-            strokeWidth = 30f
-        )
-
-        // Dibuja la barra de progreso invertida
-        drawLine(
-            color = Color.Blue,
-            start = Offset(size.width * (reversedProgress.toFloat() / totalDuration), size.height / 2),
-            end = Offset(size.width, size.height / 2),
-            strokeWidth = 30f
-        )
     }
 }
 
