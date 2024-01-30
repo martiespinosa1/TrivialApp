@@ -174,8 +174,8 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                             .requiredWidth(160.dp)
                             .then(Modifier.padding(10.dp)),
                         border = when {
-                            buttonText == respuestaCorrecta && pintarBotonCorrecto -> BorderStroke(2.dp, Color.Green)
-                            buttonText != respuestaCorrecta && pintarBotonIncorrecto -> BorderStroke(2.dp, Color.Red)
+                            buttonText == respuestaCorrecta && pintarBotonCorrecto -> BorderStroke(2.dp, Color(0xFF55FF55))
+                            buttonText != respuestaCorrecta && pintarBotonIncorrecto -> BorderStroke(2.dp, Color(0xFFFF5555))
                             else -> myViewModel.colorBorde
                         }
                     ) {
@@ -215,7 +215,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
 
 private fun calculateFontSize(text: String): TextUnit {
-    val maxLength = 9 // Define the maximum length for which the default font size will be used
+    val maxLength = 10 // Define the maximum length for which the default font size will be used
     val defaultFontSize = 18.sp // Define the default font size
 
     return if (text.length > maxLength) {
