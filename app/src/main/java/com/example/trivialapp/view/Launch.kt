@@ -40,7 +40,7 @@ import com.example.trivialapp.viewmodel.MyViewModel
 @Composable
 fun Launch(alphaAnim: Float) {
     Image(
-        painter = painterResource(id = R.drawable.fondo),
+        painter = painterResource(id = R.drawable.light),
         contentDescription = "fondo",
         modifier = Modifier.fillMaxSize(),
         contentScale = ContentScale.Crop

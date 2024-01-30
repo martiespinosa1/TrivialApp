@@ -75,14 +75,14 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
     if (myViewModel.darkMode) {
         Image(
-            painter = painterResource(id = R.drawable.fondo2),
+            painter = painterResource(id = R.drawable.dark),
             contentDescription = "fondo oscuro",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
     } else {
         Image(
-            painter = painterResource(id = R.drawable.fondo),
+            painter = painterResource(id = R.drawable.light),
             contentDescription = "fondo claro",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
