@@ -62,13 +62,12 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
     var respuestasMezcladas by remember { mutableStateOf(preguntas[indiceRandom].respuestas) }
     var respuestaCorrecta by remember { mutableStateOf(preguntas[indiceRandom].respuestas[0]) }
     var pintarBotonCorrecto by remember { mutableStateOf(false) }
-    var pintarBotonIncorrecto by remember { mutableStateOf(false) }
+
     val coroutineScope = rememberCoroutineScope()
 
     // Mezcla las respuestas
     LaunchedEffect(indiceRandom) {
         pintarBotonCorrecto = false
-        pintarBotonIncorrecto = false
         respuestasMezcladas = preguntas[indiceRandom].respuestas.toMutableList()
         respuestaCorrecta = respuestasMezcladas[0]
         respuestasMezcladas.shuffle()
@@ -135,6 +134,8 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                 for (j in 0 until 2) {
                     val buttonText = respuestasMezcladas[indiceRespuestas]
 
+                    var pintarBotonIncorrecto by remember { mutableStateOf(false) }
+
                     OutlinedButton(
                         onClick = {
                             if (buttonText == respuestaCorrecta) {
@@ -147,6 +148,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
                             coroutineScope.launch {
                                 delay(1000)
+                                pintarBotonIncorrecto = false
 
                                 if (round == totalRounds) {
                                     myViewModel.modifyAciertos(aciertos)
@@ -210,8 +212,8 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
 
 private fun calculateFontSize(text: String): TextUnit {
-    val maxLength = 11 // Define the maximum length for which the default font size will be used
-    val defaultFontSize = 20.sp // Define the default font size
+    val maxLength = 9 // Define the maximum length for which the default font size will be used
+    val defaultFontSize = 18.sp // Define the default font size
 
     return if (text.length > maxLength) {
         val scaleFactor = maxLength.toFloat() / text.length.toFloat()
