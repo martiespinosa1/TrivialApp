@@ -98,9 +98,14 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
     ) {
 
         Text(
-            text = "Round $round/$totalRounds", fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold,
+            text = "round $round/$totalRounds", fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
-            modifier = Modifier.padding(top = 15.dp)
+            modifier = Modifier.padding(top = 15.dp),
+            color = if (myViewModel.darkMode) {
+                Color.LightGray
+            } else {
+                Color.DarkGray
+            }
         )
 
         Row(
@@ -115,6 +120,11 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
                 fontSize = 28.sp,
+                color = if (myViewModel.darkMode) {
+                    Color.LightGray
+                } else {
+                    Color.DarkGray
+                },
                 modifier = Modifier.padding(top = 15.dp)
             )
         }
@@ -174,14 +184,23 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                         border = when {
                             buttonText == respuestaCorrecta && pintarBotonCorrecto -> BorderStroke(2.dp, Color.Green)
                             buttonText != respuestaCorrecta && pintarBotonIncorrecto -> BorderStroke(2.dp, Color.Red)
-                            else -> BorderStroke(2.dp, Color.DarkGray)
+                            else -> if (myViewModel.darkMode) {
+                                BorderStroke(2.dp, Color.LightGray)
+                            } else {
+                                BorderStroke(2.dp, Color.DarkGray)
+                            }
                         }
                     ) {
                         Text(
                             text = respuestasMezcladas[indiceRespuestas],
                             fontSize = calculateFontSize(respuestasMezcladas[indiceRespuestas]),
                             fontFamily = FontFamily.Monospace,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            color = if (myViewModel.darkMode) {
+                                Color.LightGray
+                            } else {
+                                Color.DarkGray
+                            }
                         )
                     }
 
