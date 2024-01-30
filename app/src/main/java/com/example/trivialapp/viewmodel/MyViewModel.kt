@@ -1,10 +1,13 @@
 package com.example.trivialapp.viewmodel
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.trivialapp.model.QuestionsAndAnswers
 import kotlin.random.Random
@@ -83,6 +86,18 @@ class MyViewModel: ViewModel() {
 
 
 
+    var colorText = if (darkMode) {
+        Color.LightGray
+    } else Color.DarkGray
+
+
+    var colorBorde = if (darkMode) {
+        BorderStroke(2.dp, Color.LightGray)
+    } else BorderStroke(2.dp, Color.DarkGray)
+
+
+
+
 
     fun modifyDifficulty(difficulty: String) {
         selectedDifficulty = difficulty
@@ -98,6 +113,14 @@ class MyViewModel: ViewModel() {
 
     fun modifyDarkMode(dark: Boolean) {
         darkMode = dark
+
+        colorText = if (darkMode) {
+            Color.LightGray
+        } else Color.DarkGray
+
+        colorBorde = if (darkMode) {
+            BorderStroke(2.dp, Color.LightGray)
+        } else BorderStroke(2.dp, Color.DarkGray)
     }
 
     fun modifyAciertos(aciertos: Int) {

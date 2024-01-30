@@ -81,9 +81,9 @@ fun Menu(navController: NavController, myViewModel: MyViewModel) {
             OutlinedButton(
                 onClick = { navController.navigate(Routes.Game.route) },
                 modifier = Modifier.requiredWidth(200.dp),
-                border = BorderStroke(2.dp, Color.DarkGray)
+                border = myViewModel.colorBorde
             ) {
-                Text(text = "New Game", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = "New Game", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
             }
         }
 
@@ -96,9 +96,9 @@ fun Menu(navController: NavController, myViewModel: MyViewModel) {
             OutlinedButton(
                 onClick = { navController.navigate(Routes.Settings.route) },
                 modifier = Modifier.requiredWidth(200.dp),
-                border = BorderStroke(2.dp, Color.DarkGray)
+                border = myViewModel.colorBorde
             ) {
-                Text(text = "Settings", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = "Settings", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
             }
         }
 

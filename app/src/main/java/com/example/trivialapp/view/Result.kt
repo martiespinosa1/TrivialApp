@@ -60,8 +60,7 @@ fun Result(navController: NavController, myViewModel: MyViewModel) {
     ) {
 
         Text(
-            text = "Your score: ${myViewModel.contadorAciertos} / ${myViewModel.selectedRounds}", fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold,
-            fontSize = 24.sp,
+            text = "Your score: ${myViewModel.contadorAciertos} / ${myViewModel.selectedRounds}", fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, fontSize = 24.sp, color = myViewModel.colorText,
             modifier = Modifier.padding(top = 15.dp)
         )
 
@@ -70,9 +69,9 @@ fun Result(navController: NavController, myViewModel: MyViewModel) {
         OutlinedButton(
             onClick = {  },
             modifier = Modifier.requiredWidth(220.dp),
-            border = BorderStroke(2.dp, Color.DarkGray)
+            border = myViewModel.colorBorde
         ) {
-            Text(text = "Share", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+            Text(text = "Share", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
         }
 
         Spacer(modifier = Modifier.padding(top = 25.dp))
@@ -80,9 +79,9 @@ fun Result(navController: NavController, myViewModel: MyViewModel) {
         OutlinedButton(
             onClick = { navController.navigate(Routes.Menu.route) },
             modifier = Modifier.requiredWidth(220.dp),
-            border = BorderStroke(2.dp, Color.DarkGray)
+            border = myViewModel.colorBorde
         ) {
-            Text(text = "Return to menu", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+            Text(text = "Return to menu", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
         }
 
     }

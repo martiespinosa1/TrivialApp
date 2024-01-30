@@ -75,10 +75,10 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Difficulty: ", fontSize = 14.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+            Text(text = "Difficulty: ", fontSize = 14.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
 
             Box(modifier = Modifier.clickable { expanded = true }) {
-                Text(text = myViewModel.selectedDifficulty, fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = myViewModel.selectedDifficulty, fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
 
 
                 DropdownMenu(
@@ -105,7 +105,7 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Rounds: ", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+            Text(text = "Rounds: ", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
 
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -123,7 +123,8 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
                         text = "5 ",
                         fontSize = 16.sp,
                         fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = myViewModel.colorText
                     )
                 }
 
@@ -139,7 +140,8 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
                         text = "10",
                         fontSize = 16.sp,
                         fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = myViewModel.colorText
                     )
                 }
 
@@ -155,7 +157,8 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
                         text = "15",
                         fontSize = 16.sp,
                         fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = myViewModel.colorText
                     )
                 }
             }
@@ -169,7 +172,7 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Time per round: ", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+            Text(text = "Time per round: ", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
 
             Slider(
                 value = myViewModel.selectedTime.toFloat(),
@@ -179,7 +182,7 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
                 modifier = Modifier.fillMaxWidth()
             )
         }
-        Text(text = "                ${myViewModel.selectedTime} seconds", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+        Text(text = "                ${myViewModel.selectedTime} seconds", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
 
 
         Row(
@@ -189,7 +192,7 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Dark mode ", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+            Text(text = "Dark mode ", fontSize = 16.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
 
             Switch(
                 checked = myViewModel.darkMode,
@@ -213,9 +216,9 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
             OutlinedButton(
                 onClick = { navController.navigate(Routes.Menu.route) },
                 modifier = Modifier.requiredWidth(220.dp),
-                border = BorderStroke(2.dp, Color.DarkGray)
+                border = myViewModel.colorBorde
             ) {
-                Text(text = "Return to menu", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
+                Text(text = "Return to menu", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
             }
         }
 

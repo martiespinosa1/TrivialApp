@@ -101,11 +101,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             text = "round $round/$totalRounds", fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
             modifier = Modifier.padding(top = 15.dp),
-            color = if (myViewModel.darkMode) {
-                Color.LightGray
-            } else {
-                Color.DarkGray
-            }
+            color = myViewModel.colorText
         )
 
         Row(
@@ -120,11 +116,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
                 fontSize = 28.sp,
-                color = if (myViewModel.darkMode) {
-                    Color.LightGray
-                } else {
-                    Color.DarkGray
-                },
+                color = myViewModel.colorText,
                 modifier = Modifier.padding(top = 15.dp)
             )
         }
@@ -184,11 +176,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                         border = when {
                             buttonText == respuestaCorrecta && pintarBotonCorrecto -> BorderStroke(2.dp, Color.Green)
                             buttonText != respuestaCorrecta && pintarBotonIncorrecto -> BorderStroke(2.dp, Color.Red)
-                            else -> if (myViewModel.darkMode) {
-                                BorderStroke(2.dp, Color.LightGray)
-                            } else {
-                                BorderStroke(2.dp, Color.DarkGray)
-                            }
+                            else -> myViewModel.colorBorde
                         }
                     ) {
                         Text(
@@ -196,11 +184,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                             fontSize = calculateFontSize(respuestasMezcladas[indiceRespuestas]),
                             fontFamily = FontFamily.Monospace,
                             fontWeight = FontWeight.Bold,
-                            color = if (myViewModel.darkMode) {
-                                Color.LightGray
-                            } else {
-                                Color.DarkGray
-                            }
+                            color = myViewModel.colorText
                         )
                     }
 
