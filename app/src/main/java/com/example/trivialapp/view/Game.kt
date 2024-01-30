@@ -30,6 +30,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -176,7 +177,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                     ) {
                         Text(
                             text = respuestasMezcladas[indiceRespuestas],
-                            fontSize = 20.sp,
+                            fontSize = calculateFontSize(respuestasMezcladas[indiceRespuestas]),
                             fontFamily = FontFamily.Monospace,
                             fontWeight = FontWeight.Bold
                         )
@@ -206,6 +207,20 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
     }
 }
+
+
+private fun calculateFontSize(text: String): TextUnit {
+    val maxLength = 11 // Define the maximum length for which the default font size will be used
+    val defaultFontSize = 20.sp // Define the default font size
+
+    return if (text.length > maxLength) {
+        val scaleFactor = maxLength.toFloat() / text.length.toFloat()
+        (defaultFontSize * scaleFactor)
+    } else {
+        defaultFontSize
+    }
+}
+
 
 
 @Composable

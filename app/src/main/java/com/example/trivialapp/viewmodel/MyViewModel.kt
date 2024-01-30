@@ -62,23 +62,24 @@ class MyViewModel: ViewModel() {
         QuestionsAndAnswers.Kahoot("¿Cuál es el segundo idioma más hablado del mundo?", mutableListOf("Español", "Inglés", "Mandarín", "Hindi"))
     )
 
-    val kahootHard : MutableList<QuestionsAndAnswers.Kahoot> = mutableListOf(
+    val kahootHard: MutableList<QuestionsAndAnswers.Kahoot> = mutableListOf(
         QuestionsAndAnswers.Kahoot("¿Quién formuló la teoría de la relatividad general?", mutableListOf("Albert Einstein", "Stephen Hawking", "Niels Bohr", "Max Planck")),
         QuestionsAndAnswers.Kahoot("¿Cuál es el elemento químico con el número atómico 79?", mutableListOf("Oro", "Plata", "Cobre", "Hierro")),
         QuestionsAndAnswers.Kahoot("¿En qué año se fundó la Unión Europea?", mutableListOf("1957", "1945", "1965", "1980")),
         QuestionsAndAnswers.Kahoot("¿Cuál es la novela más larga jamás escrita?", mutableListOf("La Montaña Mágica", "En busca del tiempo perdido", "Ulises", "Los hermanos Karamázov")),
         QuestionsAndAnswers.Kahoot("¿Qué filósofo es conocido por su teoría del superhombre?", mutableListOf("Friedrich Nietzsche", "Immanuel Kant", "Jean-Jacques Rousseau", "John Locke")),
         QuestionsAndAnswers.Kahoot("¿Cuántos premios Nobel ganó Marie Curie?", mutableListOf("Dos", "Uno", "Cinco", "Ninguno")),
-        QuestionsAndAnswers.Kahoot("¿Cuál es el fenómeno físico detrás de la aurora boreal?", mutableListOf("Interacción de partículas solares con la atmósfera", "Reflejo de la luz solar en la atmósfera", "Efecto Doppler de la luz", "Influencia de la luna en las mareas")),
+        QuestionsAndAnswers.Kahoot("¿Cuál es el nombre del proceso mediante el cual las plantas convierten la energía solar en glucosa?", mutableListOf("Fotosíntesis", "Respiración", "Metabolismo", "Digestión")),
         QuestionsAndAnswers.Kahoot("¿Cuál es la obra más famosa de Anton Chejov?", mutableListOf("La gaviota", "Tío Vania", "Tres hermanas", "El jardín de los cerezos")),
         QuestionsAndAnswers.Kahoot("¿En qué año se descubrió la estructura del ADN?", mutableListOf("1953", "1960", "1945", "1972")),
         QuestionsAndAnswers.Kahoot("¿Qué matemático propuso el teorema de incompletitud?", mutableListOf("Kurt Gödel", "Alan Turing", "David Hilbert", "Georg Cantor")),
         QuestionsAndAnswers.Kahoot("¿Quién desarrolló la teoría de los juegos?", mutableListOf("John von Neumann", "John Nash", "Leonhard Euler", "Blaise Pascal")),
         QuestionsAndAnswers.Kahoot("¿Cuántos satélites naturales tiene el planeta Marte?", mutableListOf("Dos", "Fobos y Deimos", "Cinco", "Ninguno")),
         QuestionsAndAnswers.Kahoot("¿Quién escribió 'Ensayo sobre la desigualdad de las razas humanas'?", mutableListOf("Arthur de Gobineau", "Charles Darwin", "Immanuel Kant", "Voltaire")),
-        QuestionsAndAnswers.Kahoot("¿Cuál es la obra más conocida de Ludwig van Beethoven?", mutableListOf("Sinfonía n.º 9 en re menor, op. 125", "Sonata para piano n.º 14 en do sostenido menor 'Claro de luna'", "Concierto para piano n.º 5 en mi bemol mayor 'Emperador'", "Sinfonía n.º 5 en do menor, op. 67")),
+        QuestionsAndAnswers.Kahoot("¿Cuál es la obra más conocida de Ludwig van Beethoven?", mutableListOf("Sinfonía n.º 9", "Sonata n.º 14", "Concierto n.º 5", "Sinfonía n.º 5")),
         QuestionsAndAnswers.Kahoot("¿Quién desarrolló la teoría de la relatividad especial?", mutableListOf("Albert Einstein", "Niels Bohr", "Max Planck", "Werner Heisenberg"))
     )
+
 
 
 
