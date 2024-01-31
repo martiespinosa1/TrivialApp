@@ -177,7 +177,7 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
             Slider(
                 value = myViewModel.selectedTime.toFloat(),
                 onValueChange = { myViewModel.modifyTime(it.toInt()) },
-                valueRange = 10f..60f,
+                valueRange = 5f..30f,
                 steps = 4,
                 modifier = Modifier.fillMaxWidth()
             )

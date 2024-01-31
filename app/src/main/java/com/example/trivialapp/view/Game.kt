@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,11 +22,14 @@ import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -68,6 +72,8 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
     var respuestaCorrecta by remember { mutableStateOf(preguntas[indiceRandom].respuestas[0]) }
     var pintarBotonCorrecto by remember { mutableStateOf(false) }
     var buttonsEnabled by remember { mutableStateOf(true) }
+    var timeLeft by rememberSaveable { mutableDoubleStateOf(myViewModel.selectedTime.toDouble()) }
+    var isTimeRunning by remember { mutableStateOf(true) }
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -147,6 +153,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
                     OutlinedButton(
                         onClick = {
+                            isTimeRunning = false
                             buttonsEnabled = false
 
                             if (buttonText == respuestaCorrecta) {
@@ -160,6 +167,8 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                             coroutineScope.launch {
                                 delay(1000)
                                 pintarBotonIncorrecto = false
+                                timeLeft = myViewModel.selectedTime.toDouble()
+                                isTimeRunning = true
 
                                 if (round == totalRounds) {
                                     myViewModel.modifyAciertos(aciertos)
@@ -199,35 +208,57 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                     }
 
                     indiceRespuestas++
-
-                    Spacer(modifier = Modifier.padding(10.dp))
                 }
             }
         }
 
 
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 100.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+        Box(modifier = Modifier.fillMaxWidth()
         ) {
-            LinearProgressIndicator(
-                progress = 0.8f, // Aquí puedes ajustar el progreso del ProgressBar
-                color = Color(0xFF55FF55), // Aquí puedes ajustar el color del ProgressBar
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(8.dp)
-            )
+            LaunchedEffect(timeLeft) {
+                while (timeLeft > 0 && isTimeRunning) {
+                    delay(10L)
+                    timeLeft -= 0.01
+                }
+            }
 
+            if (timeLeft <= 0.0) {
+                round++
+
+                // Remover el índice usado de la lista barajada
+                indicesBarajados = indicesBarajados.toMutableList().apply { remove(indiceRandom) }
+                // Obtener el siguiente índice barajado
+                indiceRandom = indicesBarajados[0]
+
+                // Mezclar las respuestas después de incrementar la ronda
+                respuestasMezcladas = preguntas[indiceRandom].respuestas.shuffled().toMutableList()
+                respuestaCorrecta = respuestasMezcladas[0]
+
+                pintarBotonCorrecto = false
+
+                timeLeft = myViewModel.selectedTime.toDouble()
+            }
+
+            Column (Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = if (timeLeft < 1.0) {
+                        String.format("Time left: %.1f", timeLeft)
+                    } else {
+                        "Time left: ${timeLeft.toInt()}"
+                    }, fontFamily = FontFamily.Monospace, color = myViewModel.colorText
+                )
+                LinearProgressIndicator(progress = timeLeft.toFloat() / myViewModel.selectedTime.toFloat(), color = Color(0xFF55FF55), modifier = Modifier.fillMaxWidth().height(8.dp))
+            }
         }
 
 
 
     }
 }
+
+
+
 
 
 

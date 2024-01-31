@@ -19,7 +19,7 @@ class MyViewModel: ViewModel() {
     var selectedRounds: Int by mutableIntStateOf(10)
         private set
 
-    var selectedTime: Int by mutableIntStateOf(30)
+    var selectedTime: Int by mutableIntStateOf(15)
         private set
 
     var darkMode: Boolean by mutableStateOf(false)
