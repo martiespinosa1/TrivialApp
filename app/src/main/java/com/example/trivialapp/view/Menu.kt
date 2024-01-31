@@ -90,7 +90,7 @@ fun Menu(navController: NavController, myViewModel: MyViewModel) {
                 border = myViewModel.colorBorde
             ) {
                 Icon(imageVector = Icons.Default.PlayArrow, contentDescription = "Play")
-                Text(text = "New Game", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
+                Text(text = " New Game", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
             }
         }
 
@@ -106,7 +106,7 @@ fun Menu(navController: NavController, myViewModel: MyViewModel) {
                 border = myViewModel.colorBorde
             ) {
                 Icon(imageVector = Icons.Default.Settings, contentDescription = "Settings")
-                Text(text = "Settings", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
+                Text(text = " Settings", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
             }
         }
 

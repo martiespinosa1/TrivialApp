@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
@@ -33,6 +34,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -248,7 +250,14 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                         "Time left: ${timeLeft.toInt()}"
                     }, fontFamily = FontFamily.Monospace, color = myViewModel.colorText
                 )
-                LinearProgressIndicator(progress = timeLeft.toFloat() / myViewModel.selectedTime.toFloat(), color = Color(0xFF55FF55), modifier = Modifier.fillMaxWidth().height(8.dp))
+                LinearProgressIndicator(
+                    progress = timeLeft.toFloat() / myViewModel.selectedTime.toFloat(),
+                    color = Color(0xFF55FF55),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(8.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                )
             }
         }
 
@@ -256,8 +265,6 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
     }
 }
-
-
 
 
 

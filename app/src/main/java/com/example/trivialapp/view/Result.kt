@@ -80,11 +80,11 @@ fun Result(navController: NavController, myViewModel: MyViewModel) {
 
         OutlinedButton(
             onClick = { navController.navigate(Routes.Menu.route) },
-            modifier = Modifier.requiredWidth(220.dp),
+            modifier = Modifier.requiredWidth(250.dp),
             border = myViewModel.colorBorde
         ) {
             Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
-            Text(text = "Return to menu", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
+            Text(text = " Return to menu", fontSize = 18.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
         }
 
     }
@@ -101,10 +101,10 @@ fun Share(text: String, myViewModel: MyViewModel) {
     val shareIntent = Intent.createChooser(sendIntent, "Share with...")
     OutlinedButton(
         onClick = { startActivity(context, shareIntent, null) },
-        modifier = Modifier.requiredWidth(220.dp),
+        modifier = Modifier.requiredWidth(250.dp),
         border = myViewModel.colorBorde
     ) {
         Icon(imageVector = Icons.Default.Share, contentDescription = "Share")
-        Text("Share", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText, modifier = Modifier.padding(start = 8.dp))
+        Text(" Share", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText, modifier = Modifier.padding(start = 8.dp))
     }
 }
