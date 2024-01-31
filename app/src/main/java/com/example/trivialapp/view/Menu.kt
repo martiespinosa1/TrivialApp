@@ -11,7 +11,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -83,6 +89,7 @@ fun Menu(navController: NavController, myViewModel: MyViewModel) {
                 modifier = Modifier.requiredWidth(200.dp),
                 border = myViewModel.colorBorde
             ) {
+                Icon(imageVector = Icons.Default.PlayArrow, contentDescription = "Play")
                 Text(text = "New Game", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
             }
         }
@@ -98,6 +105,7 @@ fun Menu(navController: NavController, myViewModel: MyViewModel) {
                 modifier = Modifier.requiredWidth(200.dp),
                 border = myViewModel.colorBorde
             ) {
+                Icon(imageVector = Icons.Default.Settings, contentDescription = "Settings")
                 Text(text = "Settings", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
             }
         }

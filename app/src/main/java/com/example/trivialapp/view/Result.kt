@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -82,6 +83,7 @@ fun Result(navController: NavController, myViewModel: MyViewModel) {
             modifier = Modifier.requiredWidth(220.dp),
             border = myViewModel.colorBorde
         ) {
+            Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
             Text(text = "Return to menu", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
         }
 
