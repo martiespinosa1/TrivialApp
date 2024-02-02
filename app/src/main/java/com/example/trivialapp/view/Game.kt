@@ -63,7 +63,7 @@ import kotlin.random.Random
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun Game(navController: NavController, myViewModel: MyViewModel) {
-    var round by remember { mutableIntStateOf(1) }
+    var round by rememberSaveable { mutableIntStateOf(1) }
     val totalRounds by remember { mutableIntStateOf(myViewModel.selectedRounds) }
     var aciertos by remember { mutableIntStateOf(0) }
 
@@ -104,7 +104,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
     val configuration = LocalConfiguration.current
     when (configuration.orientation) {
         Configuration.ORIENTATION_LANDSCAPE -> {
-            landscapeMode = false
+            landscapeMode = true
         }
         else -> {
             landscapeMode = false
@@ -113,75 +113,149 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
 
 
-    if (landscapeMode) { // MODO LANDSCAPE
-        if (myViewModel.darkMode) {
-            Image(
-                painter = painterResource(id = R.drawable.krad),
-                contentDescription = "fondo oscuro",
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
-        } else {
-            Image(
-                painter = painterResource(id = R.drawable.thgil),
-                contentDescription = "fondo claro",
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
-        }
 
-    } else { // MODO PORTRAIT
 
-        if (myViewModel.darkMode) {
-            Image(
-                painter = painterResource(id = R.drawable.dark),
-                contentDescription = "fondo oscuro",
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
-        } else {
-            Image(
-                painter = painterResource(id = R.drawable.light),
-                contentDescription = "fondo claro",
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
-        }
+    if (myViewModel.darkMode) {
+        Image(
+            painter = painterResource(id = R.drawable.dark),
+            contentDescription = "fondo oscuro",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+    } else {
+        Image(
+            painter = painterResource(id = R.drawable.light),
+            contentDescription = "fondo claro",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+    }
 
-        Column(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(start = 25.dp, end = 25.dp, top = if (landscapeMode) 5.dp else 15.dp, bottom = if (landscapeMode) 5.dp else 15.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "round $round/$totalRounds",
+            fontFamily = FontFamily.Monospace,
+            fontSize = 20.sp,
+            color = myViewModel.colorText
+        )
+
+        Row(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(25.dp),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxWidth()
+                .padding(top = if (landscapeMode) 50.dp else 100.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "round $round/$totalRounds",
+                text = preguntas[indiceRandom].pregunta,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
-                fontSize = 24.sp,
-                modifier = Modifier.padding(top = 15.dp),
-                color = myViewModel.colorText
+                fontSize = 28.sp,
+                color = myViewModel.colorText,
+                modifier = Modifier.padding(top = if (landscapeMode) 0.dp else 15.dp)
             )
+        }
+
+        var indiceRespuestas = 0
+
+        if (landscapeMode) {
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 100.dp),
+                    .padding(top = 70.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = preguntas[indiceRandom].pregunta,
-                    fontFamily = FontFamily.Monospace,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 28.sp,
-                    color = myViewModel.colorText,
-                    modifier = Modifier.padding(top = 15.dp)
-                )
+                for (i in 0 until 4) {
+
+
+                    val buttonText = respuestasMezcladas[indiceRespuestas]
+
+                    var pintarBotonIncorrecto by remember { mutableStateOf(false) }
+
+                    OutlinedButton(
+                        onClick = {
+                            isTimeRunning = false
+                            buttonsEnabled = false
+
+                            if (buttonText == respuestaCorrecta) {
+                                aciertos++
+                                pintarBotonCorrecto = true
+                            } else {
+                                pintarBotonIncorrecto = true
+                                pintarBotonCorrecto = true
+                            }
+
+                            coroutineScope.launch {
+                                delay(1000)
+                                pintarBotonIncorrecto = false
+                                timeLeft = myViewModel.selectedTime.toDouble()
+                                isTimeRunning = true
+
+                                if (round == totalRounds) {
+                                    myViewModel.modifyAciertos(aciertos)
+                                    navController.navigate(Routes.Result.route)
+                                } else {
+                                    round++
+                                    // Remover el índice usado de la lista barajada
+                                    indicesBarajados = indicesBarajados.toMutableList()
+                                        .apply { remove(indiceRandom) }
+                                    // Obtener el siguiente índice barajado
+                                    indiceRandom = indicesBarajados[0]
+
+                                    // Mezclar las respuestas después de incrementar la ronda
+                                    respuestasMezcladas =
+                                        preguntas[indiceRandom].respuestas.shuffled()
+                                            .toMutableList()
+                                    respuestaCorrecta = respuestasMezcladas[0]
+
+                                    pintarBotonCorrecto = false
+                                }
+                            }
+                        },
+                        modifier = Modifier
+                            .requiredWidth(160.dp)
+                            .then(Modifier.padding(10.dp)),
+                        border = when {
+                            buttonText == respuestaCorrecta && pintarBotonCorrecto -> BorderStroke(
+                                2.dp,
+                                Color(0xFF55FF55)
+                            )
+
+                            buttonText != respuestaCorrecta && pintarBotonIncorrecto -> BorderStroke(
+                                2.dp,
+                                Color(0xFFFF5555)
+                            )
+
+                            else -> myViewModel.colorBorde
+                        },
+                        enabled = buttonsEnabled
+                    ) {
+                        Text(
+                            text = respuestasMezcladas[indiceRespuestas],
+                            fontSize = calculateFontSize(respuestasMezcladas[indiceRespuestas]),
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = FontWeight.Bold,
+                            color = myViewModel.colorText
+                        )
+                    }
+
+                    indiceRespuestas++
+                }
             }
 
-            var indiceRespuestas = 0
+
+
+
+
+        } else { // LANDSCAPE
 
             var pad = 150
             for (i in 0 until 2) {
@@ -269,60 +343,59 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                     }
                 }
             }
+        }
 
 
-            Box(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                LaunchedEffect(timeLeft) {
-                    while (timeLeft > 0 && isTimeRunning) {
-                        delay(10L)
-                        timeLeft -= 0.01
-                    }
-                }
-
-                if (timeLeft <= 0.0) {
-                    round++
-
-                    // Remover el índice usado de la lista barajada
-                    indicesBarajados =
-                        indicesBarajados.toMutableList().apply { remove(indiceRandom) }
-                    // Obtener el siguiente índice barajado
-                    indiceRandom = indicesBarajados[0]
-
-                    // Mezclar las respuestas después de incrementar la ronda
-                    respuestasMezcladas =
-                        preguntas[indiceRandom].respuestas.shuffled().toMutableList()
-                    respuestaCorrecta = respuestasMezcladas[0]
-
-                    pintarBotonCorrecto = false
-
-                    timeLeft = myViewModel.selectedTime.toDouble()
-                }
-
-                Column(
-                    Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text(
-                        text = if (timeLeft < 1.0) {
-                            String.format("Time left: %.1f", timeLeft)
-                        } else {
-                            "Time left: ${timeLeft.toInt()}"
-                        }, fontFamily = FontFamily.Monospace, color = myViewModel.colorText
-                    )
-                    LinearProgressIndicator(
-                        progress = timeLeft.toFloat() / myViewModel.selectedTime.toFloat(),
-                        color = Color(0xFF55FF55),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(8.dp)
-                            .clip(RoundedCornerShape(4.dp))
-                    )
+        Box(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            LaunchedEffect(timeLeft) {
+                while (timeLeft > 0 && isTimeRunning) {
+                    delay(10L)
+                    timeLeft -= 0.01
                 }
             }
 
+            if (timeLeft <= 0.0) {
+                round++
+
+                // Remover el índice usado de la lista barajada
+                indicesBarajados =
+                    indicesBarajados.toMutableList().apply { remove(indiceRandom) }
+                // Obtener el siguiente índice barajado
+                indiceRandom = indicesBarajados[0]
+
+                // Mezclar las respuestas después de incrementar la ronda
+                respuestasMezcladas =
+                    preguntas[indiceRandom].respuestas.shuffled().toMutableList()
+                respuestaCorrecta = respuestasMezcladas[0]
+
+                pintarBotonCorrecto = false
+
+                timeLeft = myViewModel.selectedTime.toDouble()
+            }
+
+            Column(
+                Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = if (timeLeft < 1.0) {
+                        String.format("Time left: %.1f", timeLeft)
+                    } else {
+                        "Time left: ${timeLeft.toInt()}"
+                    }, fontFamily = FontFamily.Monospace, color = myViewModel.colorText
+                )
+                LinearProgressIndicator(
+                    progress = timeLeft.toFloat() / myViewModel.selectedTime.toFloat(),
+                    color = Color(0xFF55FF55),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(8.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                )
+            }
         }
 
 
