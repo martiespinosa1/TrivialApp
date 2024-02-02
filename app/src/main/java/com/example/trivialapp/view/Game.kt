@@ -114,15 +114,29 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
 
 
-
-    if (myViewModel.darkMode) {
+    // FONDO light / dark & portrait / landscape
+    if (myViewModel.darkMode && landscapeMode) {
+        Image(
+            painter = painterResource(id = R.drawable.krad),
+            contentDescription = "fondo oscuro",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+    } else if (!myViewModel.darkMode && landscapeMode) {
+        Image(
+            painter = painterResource(id = R.drawable.thgil),
+            contentDescription = "fondo claro",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+    } else if (myViewModel.darkMode && !landscapeMode) {
         Image(
             painter = painterResource(id = R.drawable.dark),
             contentDescription = "fondo oscuro",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-    } else {
+    } else if (!myViewModel.darkMode && !landscapeMode) {
         Image(
             painter = painterResource(id = R.drawable.light),
             contentDescription = "fondo claro",
@@ -130,6 +144,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             contentScale = ContentScale.Crop
         )
     }
+
 
     Column(
         modifier = Modifier
@@ -357,22 +372,27 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             }
 
             if (timeLeft <= 0.0) {
-                round++
+                if (round == totalRounds) {
+                    myViewModel.modifyAciertos(aciertos)
+                    navController.navigate(Routes.Result.route)
+                } else {
+                    round++
 
-                // Remover el índice usado de la lista barajada
-                indicesBarajados =
-                    indicesBarajados.toMutableList().apply { remove(indiceRandom) }
-                // Obtener el siguiente índice barajado
-                indiceRandom = indicesBarajados[0]
+                    // Remover el índice usado de la lista barajada
+                    indicesBarajados =
+                        indicesBarajados.toMutableList().apply { remove(indiceRandom) }
+                    // Obtener el siguiente índice barajado
+                    indiceRandom = indicesBarajados[0]
 
-                // Mezclar las respuestas después de incrementar la ronda
-                respuestasMezcladas =
-                    preguntas[indiceRandom].respuestas.shuffled().toMutableList()
-                respuestaCorrecta = respuestasMezcladas[0]
+                    // Mezclar las respuestas después de incrementar la ronda
+                    respuestasMezcladas =
+                        preguntas[indiceRandom].respuestas.shuffled().toMutableList()
+                    respuestaCorrecta = respuestasMezcladas[0]
 
-                pintarBotonCorrecto = false
+                    pintarBotonCorrecto = false
 
-                timeLeft = myViewModel.selectedTime.toDouble()
+                    timeLeft = myViewModel.selectedTime.toDouble()
+                }
             }
 
             Column(
