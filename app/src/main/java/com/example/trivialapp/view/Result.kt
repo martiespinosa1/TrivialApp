@@ -83,7 +83,7 @@ fun Result(navController: NavController, myViewModel: MyViewModel) {
             modifier = Modifier.requiredWidth(250.dp),
             border = myViewModel.colorBorde
         ) {
-            Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
+            Icon(imageVector = Icons.Default.Menu, tint = myViewModel.colorText, contentDescription = "Menu")
             Text(text = " Return to menu", fontSize = 18.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
         }
 
@@ -104,7 +104,7 @@ fun Share(text: String, myViewModel: MyViewModel) {
         modifier = Modifier.requiredWidth(250.dp),
         border = myViewModel.colorBorde
     ) {
-        Icon(imageVector = Icons.Default.Share, contentDescription = "Share")
+        Icon(imageVector = Icons.Default.Share, tint = myViewModel.colorText, contentDescription = "Share")
         Text(" Share", fontSize = 20.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText, modifier = Modifier.padding(start = 8.dp))
     }
 }

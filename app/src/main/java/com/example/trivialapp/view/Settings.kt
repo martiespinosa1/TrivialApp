@@ -222,7 +222,7 @@ fun Settings(navController: NavController, myViewModel: MyViewModel) {
                 modifier = Modifier.requiredWidth(250.dp),
                 border = myViewModel.colorBorde
             ) {
-                Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
+                Icon(imageVector = Icons.Default.Menu, tint = myViewModel.colorText, contentDescription = "Menu")
                 Text(text = " Return to menu", fontSize = 18.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = myViewModel.colorText)
             }
         }
