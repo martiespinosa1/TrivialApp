@@ -7,6 +7,8 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,10 +23,15 @@ import com.example.trivialapp.view.Settings
 import com.example.trivialapp.viewmodel.MyViewModel
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         val myViewModel by viewModels<MyViewModel>()
         super.onCreate(savedInstanceState)
         setContent {
+            var windowSize = calculateWindowSizeClass(this)
+            var anchoPantalla = windowSize.widthSizeClass
+            var altoPantalla = windowSize.heightSizeClass
+
             TrivialAppTheme(myViewModel) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
