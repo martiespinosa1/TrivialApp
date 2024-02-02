@@ -389,7 +389,11 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                 )
                 LinearProgressIndicator(
                     progress = timeLeft.toFloat() / myViewModel.selectedTime.toFloat(),
-                    color = Color(0xFF55FF55),
+                    color = when {
+                        timeLeft <= myViewModel.selectedTime / 5.0 -> Color(0xFFF44336) // Rojo para menos de 1/5 del tiempo
+                        timeLeft <= myViewModel.selectedTime / 2.0 -> Color(0xFFFFEB3B) // Amarillo para menos de la mitad del tiempo
+                        else -> Color(0xFF55FF55) // Verde para el resto del tiempo
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(8.dp)
