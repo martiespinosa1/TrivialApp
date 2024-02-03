@@ -65,7 +65,7 @@ import kotlin.random.Random
 fun Game(navController: NavController, myViewModel: MyViewModel) {
     var round by rememberSaveable { mutableIntStateOf(1) }
     val totalRounds by remember { mutableIntStateOf(myViewModel.selectedRounds) }
-    var aciertos by remember { mutableIntStateOf(0) }
+    var aciertos by rememberSaveable { mutableIntStateOf(0) }
 
     val preguntas: MutableList<Kahoot> = when (myViewModel.selectedDifficulty) {
         "Easy" -> myViewModel.kahootEasy.toMutableList()
@@ -74,15 +74,15 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
         else -> { myViewModel.kahootMedium.toMutableList() }
     }
 
-    var indicesBarajados by remember { mutableStateOf(preguntas.indices.shuffled()) }
-    var indiceRandom by remember { mutableIntStateOf(indicesBarajados[0]) }
-    var respuestasMezcladas by remember { mutableStateOf(preguntas[indiceRandom].respuestas) }
-    var respuestaCorrecta by remember { mutableStateOf(preguntas[indiceRandom].respuestas[0]) }
-    var pintarBotonCorrecto by remember { mutableStateOf(false) }
-    var buttonsEnabled by remember { mutableStateOf(true) }
+    var indicesBarajados by rememberSaveable { mutableStateOf(preguntas.indices.shuffled()) }
+    var indiceRandom by rememberSaveable { mutableIntStateOf(indicesBarajados[0]) }
+    var respuestasMezcladas by rememberSaveable { mutableStateOf(preguntas[indiceRandom].respuestas) }
+    var respuestaCorrecta by rememberSaveable { mutableStateOf(preguntas[indiceRandom].respuestas[0]) }
+    var pintarBotonCorrecto by rememberSaveable { mutableStateOf(false) }
+    var buttonsEnabled by rememberSaveable { mutableStateOf(true) }
     var timeLeft by rememberSaveable { mutableDoubleStateOf(myViewModel.selectedTime.toDouble()) }
-    var isTimeRunning by remember { mutableStateOf(true) }
-    var landscapeMode by remember { mutableStateOf(false) }
+    var isTimeRunning by rememberSaveable { mutableStateOf(true) }
+    var landscapeMode by rememberSaveable { mutableStateOf(false) }
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -149,7 +149,12 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = 25.dp, end = 25.dp, top = if (landscapeMode) 5.dp else 15.dp, bottom = if (landscapeMode) 5.dp else 15.dp),
+            .padding(
+                start = 25.dp,
+                end = 25.dp,
+                top = if (landscapeMode) 5.dp else 15.dp,
+                bottom = if (landscapeMode) 5.dp else 15.dp
+            ),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
