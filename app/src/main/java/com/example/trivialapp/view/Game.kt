@@ -184,7 +184,6 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                 color = if (tipoColor == "#000000") myViewModel.colorText else Color(android.graphics.Color.parseColor(tipoColor)),
                 modifier = Modifier.padding(top = if (landscapeMode) 0.dp else 15.dp)
             )
-
         }
 
 
@@ -217,7 +216,6 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 for (i in 0 until 4) {
-
 
                     val buttonText = respuestasMezcladas[indiceRespuestas]
 
