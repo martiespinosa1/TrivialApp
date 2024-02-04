@@ -83,11 +83,6 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
     }
 
 
-
-
-
-
-
     val configuration = LocalConfiguration.current
     when (configuration.orientation) {
         Configuration.ORIENTATION_LANDSCAPE -> {
@@ -97,8 +92,6 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             landscapeMode = false
         }
     }
-
-
 
 
     // FONDO light / dark & portrait / landscape
@@ -207,7 +200,6 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
         var indiceRespuestas = 0
 
         if (landscapeMode) {
-
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -287,14 +279,9 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                             color = myViewModel.colorText
                         )
                     }
-
                     indiceRespuestas++
                 }
             }
-
-
-
-
 
         } else { // LANDSCAPE
 
@@ -379,7 +366,6 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                                 color = myViewModel.colorText
                             )
                         }
-
                         indiceRespuestas++
                     }
                 }
@@ -447,9 +433,6 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                 )
             }
         }
-
-
-
     }
 }
 
