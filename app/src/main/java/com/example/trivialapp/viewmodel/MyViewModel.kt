@@ -216,7 +216,6 @@ class MyViewModel: ViewModel() {
         Kahoot("¿Cuántos colores tiene un arcoíris?", mutableListOf("Siete", "Cinco", "Nueve", "Diez"), "Ciencia"),
         Kahoot("¿En qué continente se encuentra la Gran Muralla China?", mutableListOf("Asia", "Europa", "África", "América"), "Geografía"),
         Kahoot("¿Cuál es el país más pequeño del mundo?", mutableListOf("Ciudad del Vaticano", "Mónaco", "Nauru", "Tuvalu"), "Geografía"),
-        Kahoot("¿Cuál es la velocidad de la luz?", mutableListOf("299,792,458 metros por segundo", "150,000,000 metros por segundo", "450,000,000 metros por segundo", "600,000,000 metros por segundo"), "Física"),
         Kahoot("¿Cuál es el instrumento musical más antiguo del mundo?", mutableListOf("Lira", "Flauta", "Tambor", "Arpa"), "Música"),
         Kahoot("¿En qué año se llevó a cabo la Revolución Industrial?", mutableListOf("Siglo XVIII", "Siglo XIX", "Siglo XX", "Siglo XVII"), "Historia"),
         Kahoot("¿Cuál es el metal más ligero?", mutableListOf("Aluminio", "Hierro", "Cobre", "Oro"), "Química"),
@@ -313,6 +312,7 @@ class MyViewModel: ViewModel() {
         Kahoot("¿En qué año se fundó la ciudad de Bagdad?", mutableListOf("762", "810", "836", "889"), "Historia"),
         Kahoot("¿Cuál es el componente principal de la atmósfera de Marte?", mutableListOf("Dióxido de carbono", "Nitrógeno", "Oxígeno", "Metano"), "Astronomía"),
         Kahoot("¿Quién fue el primer emperador de China?", mutableListOf("Qin Shi Huang", "Han Wudi", "Kangxi", "Sun Yat-sen"), "Historia"),
+        Kahoot("¿Cuál es la velocidad de la luz en el vacío?", mutableListOf("299,792,458 metros por segundo", "150,000,000 metros por segundo", "450,000,000 metros por segundo", "600,000,000 metros por segundo"), "Física"),
         Kahoot("¿En qué año se firmó la Declaración de Independencia de México?", mutableListOf("1821", "1810", "1835", "1848"), "Historia"),
         Kahoot("¿Cuál es el animal más veloz en tierra?", mutableListOf("Guepardo", "León", "Leopardo", "Lobo"), "Biología"),
         Kahoot("¿Qué isla es conocida como 'La Isla de la Estatua'?", mutableListOf("Isla de Pascua", "Isla de Man", "Isla de Wight", "Isla de Skye"), "Geografía"),
@@ -324,6 +324,7 @@ class MyViewModel: ViewModel() {
         Kahoot("¿Cuál es el río más largo de América del Sur?", mutableListOf("Amazonas", "Orinoco", "Paraná", "Magdalena"), "Geografía"),
         Kahoot("¿En qué año se inauguró el Canal de Suez?", mutableListOf("1869", "1850", "1885", "1901"), "Historia"),
         Kahoot("¿Cuál es el símbolo químico del platino?", mutableListOf("Pt", "Au", "Ag", "Pd"), "Química"),
+        Kahoot("¿Quién fue el primer hombre en realizar un vuelo espacial orbital?", mutableListOf("Yuri Gagarin", "John Glenn", "Neil Armstrong", "Valentina Tereshkova"), "Astronáutica"),
         Kahoot("¿Cuál es el metal más abundante en la corteza terrestre?", mutableListOf("Aluminio", "Hierro", "Cobre", "Oro"), "Química"),
         Kahoot("¿En qué año se estableció el Imperio Mongol?", mutableListOf("1206", "1258", "1300", "1356"), "Historia"),
         Kahoot("¿Cuál es el hueso más largo del cuerpo humano?", mutableListOf("Fémur", "Húmero", "Tibia", "Radio"), "Anatomía"),
@@ -386,8 +387,7 @@ class MyViewModel: ViewModel() {
         Kahoot("¿Cuál es el gas más presente en la atmósfera de Marte?", mutableListOf("Dióxido de carbono", "Nitrógeno", "Oxígeno", "Metano"), "Astronomía"),
         Kahoot("¿Quién fue el autor de 'Crimen y castigo'?", mutableListOf("Fiodor Dostoievski", "León Tolstói", "Gabriel García Márquez", "Hermann Hesse"), "Literatura"),
         Kahoot("¿Cuál es el país más pequeño de América Latina por área?", mutableListOf("El Salvador", "Belice", "Costa Rica", "Panamá"), "Geografía"),
-        Kahoot("¿En qué año se fundó la República Popular China?", mutableListOf("1949", "1911", "1927", "1955"), "Historia"),
-        Kahoot("¿Quién fue el autor de 'La Odisea'?", mutableListOf("Homero", "Sófocles", "Eurípides", "Esquilo"), "Literatura")
+        Kahoot("¿En qué año se fundó la República Popular China?", mutableListOf("1949", "1911", "1927", "1955"), "Historia")
     )
 
 
