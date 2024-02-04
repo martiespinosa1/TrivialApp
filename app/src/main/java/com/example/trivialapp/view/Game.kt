@@ -160,18 +160,20 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             horizontalArrangement = Arrangement.Center
         ) {
             val tipoColor = when (preguntas[indiceRandom].tipo) {
-                "Historia" -> Color(0xFFF44336)
-                "Geografía" -> Color(0xFF32D139)
-                "Química" -> Color(0xFF2196F3)
-                "Literatura" -> Color(0xFF8C61D8)
-                "Biología" -> Color(0xFFCDDC39)
-                "Astronomía" -> Color(0xFF00BCD4)
-                "Deportes" -> Color(0xFFFFA500)
-                "Música" -> Color(0xFFD39BA5)
-                "Economía" -> Color(0xFF8B4513)
-                "Ciencia" -> Color(0xFF3F51B5)
-                "Arte" -> Color(0xFFDD366F)
-                else -> Color.Black
+                "Historia" -> if (myViewModel.darkMode) "#FFB6C1" else "#993333"
+                "Geografía" -> if (myViewModel.darkMode) "#98FB98" else "#556B55"
+                "Química" -> if (myViewModel.darkMode) "#ADD8E6" else "#687C83"
+                "Literatura" -> if (myViewModel.darkMode) "#D8BFD8" else "#7A4E7A"
+                "Biología" -> if (myViewModel.darkMode) "#FFFFE0" else "#B6A77C"
+                "Astronomía" -> if (myViewModel.darkMode) "#E0FFFF" else "#759B9B"
+                "Deportes" -> if (myViewModel.darkMode) "#FFD700" else "#997700"
+                "Música" -> if (myViewModel.darkMode) "#FFB6C1" else "#B28282"
+                "Economía" -> if (myViewModel.darkMode) "#D2B48C" else "#927854"
+                "Ciencia" -> if (myViewModel.darkMode) "#00CED1" else "#4F7F7F"
+                "Arte" -> if (myViewModel.darkMode) "#D3D3D3" else "#8C8C8C"
+                "Anatomía" -> if (myViewModel.darkMode) "#FF69B4" else "#996699"
+                "Botánica" -> if (myViewModel.darkMode) "#228B22" else "#3D573D"
+                else -> "#000000"
             }
 
             Text(
@@ -179,9 +181,10 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
                 fontSize = if (landscapeMode) 23.sp else 28.sp,
-                color = if (tipoColor == Color.Black) myViewModel.colorText else tipoColor,
+                color = if (tipoColor == "#000000") myViewModel.colorText else Color(android.graphics.Color.parseColor(tipoColor)),
                 modifier = Modifier.padding(top = if (landscapeMode) 0.dp else 15.dp)
             )
+
         }
 
 
@@ -209,7 +212,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 70.dp),
+                    .padding(top = 50.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -353,7 +356,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                                 }
                             },
                             modifier = Modifier
-                                .requiredWidth(160.dp)
+                                .requiredWidth(180.dp)
                                 .then(Modifier.padding(10.dp)),
                             border = when {
                                 buttonText == respuestaCorrecta && pintarBotonCorrecto -> BorderStroke(
@@ -453,28 +456,9 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 }
 
 
-
-private fun colorTipo(tipo: String): String {
-    return when (tipo) {
-        "Historia" -> "#FF0000"       // Rojo
-        "Geografía" -> "#00FF00"      // Verde
-        "Química" -> "#0000FF"        // Azul
-        "Literatura" -> "#800080"     // Morado
-        "Biología" -> "#FFFF00"       // Amarillo
-        "Astronomía" -> "#00FFFF"     // Celeste
-        "Deportes" -> "#FFA500"       // Naranja
-        "Música" -> "#FFC0CB"         // Rosa
-        "Economía" -> "#8B4513"       // Café
-        "Ciencia" -> "#00CED1"        // Turquesa
-        "Arte" -> "#A9A9A9"           // Gris
-        else -> "#000000"             // Negro por defecto
-    }
-}
-
-
 private fun calculateFontSize(text: String): TextUnit {
-    val maxLength = 10 // Define the maximum length for which the default font size will be used
-    val defaultFontSize = 18.sp // Define the default font size
+    val maxLength = 10
+    val defaultFontSize = 18.sp
 
     return if (text.length > maxLength) {
         val scaleFactor = maxLength.toFloat() / text.length.toFloat()
