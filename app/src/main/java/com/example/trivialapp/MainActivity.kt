@@ -29,8 +29,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             var windowSize = calculateWindowSizeClass(this)
-            var anchoPantalla = windowSize.widthSizeClass
-            var altoPantalla = windowSize.heightSizeClass
 
             TrivialAppTheme(myViewModel) {
                 Surface(

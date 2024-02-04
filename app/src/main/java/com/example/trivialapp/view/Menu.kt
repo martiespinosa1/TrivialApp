@@ -1,6 +1,5 @@
 package com.example.trivialapp.view
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,11 +11,8 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -24,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -64,7 +59,7 @@ fun Menu(navController: NavController, myViewModel: MyViewModel) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 50.dp),
+                .padding(bottom = 30.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -72,7 +67,7 @@ fun Menu(navController: NavController, myViewModel: MyViewModel) {
                 painter = painterResource(id = R.drawable.trivial_logo),
                 contentDescription = "logo",
                 modifier = Modifier
-                    .requiredSize(200.dp)
+                    .requiredSize(150.dp)
                     .clip(shape = RoundedCornerShape(35.dp))
             )
         }

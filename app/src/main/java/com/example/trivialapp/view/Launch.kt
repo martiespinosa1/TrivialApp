@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,10 +32,8 @@ import androidx.navigation.NavController
 import com.example.trivialapp.R
 import kotlinx.coroutines.delay
 import com.example.trivialapp.navigation.Routes
-import com.example.trivialapp.viewmodel.MyViewModel
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Launch(alphaAnim: Float) {
     Image(
@@ -56,6 +53,7 @@ fun Launch(alphaAnim: Float) {
             contentDescription = "logo",
             alpha = alphaAnim,
             modifier = Modifier
+                .requiredSize(150.dp)
                 .clip(shape = RoundedCornerShape(25.dp))
         )
     }
@@ -70,7 +68,7 @@ fun Launch(alphaAnim: Float) {
         val colorGrisClaro = Color(.75f, 0.75f, 0.75f) // Gris claro
         Text(
             text = "Trivial App",
-            fontSize = 33.sp,
+            fontSize = 30.sp,
             fontFamily = FontFamily.Monospace,
             color = Color.DarkGray,
             modifier = Modifier.padding(top = 150.dp).alpha(alphaAnim)

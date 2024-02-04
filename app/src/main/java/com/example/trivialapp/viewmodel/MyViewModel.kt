@@ -4,13 +4,11 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.trivialapp.model.QuestionsAndAnswers.Kahoot
-import kotlin.random.Random
 
 class MyViewModel: ViewModel() {
     var selectedDifficulty: String by mutableStateOf("Medium")

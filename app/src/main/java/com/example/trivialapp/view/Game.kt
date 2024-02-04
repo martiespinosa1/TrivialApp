@@ -1,9 +1,7 @@
 package com.example.trivialapp.view
 
 import android.content.res.Configuration
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,17 +14,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
-import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -38,8 +30,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
@@ -51,16 +41,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.trivialapp.R
-import com.example.trivialapp.model.QuestionsAndAnswers
 import com.example.trivialapp.navigation.Routes
 import com.example.trivialapp.viewmodel.MyViewModel
 import com.example.trivialapp.model.QuestionsAndAnswers.Kahoot
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun Game(navController: NavController, myViewModel: MyViewModel) {
     var round by rememberSaveable { mutableIntStateOf(1) }
@@ -168,7 +155,40 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = if (landscapeMode) 50.dp else 100.dp),
+                .padding(top = if (landscapeMode) 20.dp else 50.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            val tipoColor = when (preguntas[indiceRandom].tipo) {
+                "Historia" -> Color(0xFFF44336)
+                "Geografía" -> Color(0xFF32D139)
+                "Química" -> Color(0xFF2196F3)
+                "Literatura" -> Color(0xFF8C61D8)
+                "Biología" -> Color(0xFFCDDC39)
+                "Astronomía" -> Color(0xFF00BCD4)
+                "Deportes" -> Color(0xFFFFA500)
+                "Música" -> Color(0xFFD39BA5)
+                "Economía" -> Color(0xFF8B4513)
+                "Ciencia" -> Color(0xFF3F51B5)
+                "Arte" -> Color(0xFFDD366F)
+                else -> Color.Black
+            }
+
+            Text(
+                text = preguntas[indiceRandom].tipo,
+                fontFamily = FontFamily.Monospace,
+                fontWeight = FontWeight.Bold,
+                fontSize = if (landscapeMode) 23.sp else 28.sp,
+                color = if (tipoColor == Color.Black) myViewModel.colorText else tipoColor,
+                modifier = Modifier.padding(top = if (landscapeMode) 0.dp else 15.dp)
+            )
+        }
+
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = if (landscapeMode) 20.dp else 50.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -434,6 +454,22 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
 
 
 
+private fun colorTipo(tipo: String): String {
+    return when (tipo) {
+        "Historia" -> "#FF0000"       // Rojo
+        "Geografía" -> "#00FF00"      // Verde
+        "Química" -> "#0000FF"        // Azul
+        "Literatura" -> "#800080"     // Morado
+        "Biología" -> "#FFFF00"       // Amarillo
+        "Astronomía" -> "#00FFFF"     // Celeste
+        "Deportes" -> "#FFA500"       // Naranja
+        "Música" -> "#FFC0CB"         // Rosa
+        "Economía" -> "#8B4513"       // Café
+        "Ciencia" -> "#00CED1"        // Turquesa
+        "Arte" -> "#A9A9A9"           // Gris
+        else -> "#000000"             // Negro por defecto
+    }
+}
 
 
 private fun calculateFontSize(text: String): TextUnit {
