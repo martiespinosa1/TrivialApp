@@ -262,7 +262,7 @@ fun Game(navController: NavController, myViewModel: MyViewModel) {
                             }
                         },
                         modifier = Modifier
-                            .requiredWidth(160.dp)
+                            .requiredWidth(180.dp)
                             .then(Modifier.padding(10.dp)),
                         border = when {
                             buttonText == respuestaCorrecta && pintarBotonCorrecto -> BorderStroke(
